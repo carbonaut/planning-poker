@@ -12,12 +12,24 @@ const Home: NextPage = () => {
     socket = io()
 
     socket.on('connect', () => {
-      socket.emit('room', '123')
+      socket.emit('join', '123')
     })
 
     socket.on('countUpdate', (data) => {
         setNoDevs(data);
     })
+
+    socket.on('voteUpdate', (data) => {
+        console.log(data)
+    })
+
+    socket.on('finished', (data) => {
+        console.log('finished!', data)
+    })
+  }
+
+  const handleVoteClick = () => {
+      socket.emit('vote', '5')
   }
 
  
@@ -25,6 +37,7 @@ const Home: NextPage = () => {
   return (
     <div>
       <h1>Room! Number of devs: {noDevs}</h1>
+      <button onClick={handleVoteClick}>Vote!</button>
     </div>
   )
 }
