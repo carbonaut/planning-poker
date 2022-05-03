@@ -1,11 +1,10 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Login from '../components/Login/login'
-import styles from '../styles/Home.module.scss'
+import type { NextPage } from "next";
+import Head from "next/head";
+import Login from "../components/Login/login";
+import styles from "../styles/Home.module.scss";
 
 const Home: NextPage = () => {
-  function createRoom () {
-  }
+  function createRoom() {}
 
   return (
     <div className={styles.container}>
@@ -20,10 +19,14 @@ const Home: NextPage = () => {
       </div>
 
       <footer>
-        <p className={styles.footer} onClick={createRoom}>Criar uma sala</p>
+        <p>
+          <a className={styles.footer} onClick={createRoom}>
+            Criar uma sala
+          </a>
+        </p>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
