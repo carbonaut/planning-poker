@@ -5,7 +5,7 @@ const RadioOptions = () => {
   const [selected, setSelected] = useState(null);
   const hours = [1, 2, 3, 5, 8, 13, 21];
 
-  function onChange(e) {
+  function onChange(e: any) {
     setSelected(e.target.value);
   }
 

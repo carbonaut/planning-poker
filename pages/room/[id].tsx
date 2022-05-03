@@ -5,7 +5,7 @@ import io from 'Socket.IO-client'
 import Estimation from "../../components/Estimation/estimation";
 import styles from '../../styles/Room.module.scss';
 
-let socket
+let socket: any
 const Room: NextPage = () => {
   const router = useRouter()
   const { pid } = router.query

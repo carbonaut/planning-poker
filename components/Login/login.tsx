@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './login.module.scss';
 
-const Login = (props) => {
+const Login = (props: any) => {
   const [value, setValue] = useState('')
 
   return (

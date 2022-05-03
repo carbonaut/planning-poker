@@ -14,25 +14,25 @@ const createRoom = () => {
     }
 }
 
-const resetRoom = (room) => {
+const resetRoom = (room:any) => {
     const newRoom = {...room, state: 'running', haveVoted: 0, votes: { '1': 0, '2': 0, '3': 0, '5': 0, '8': 0, '13': 0, '21': 0}}
     return newRoom
 }
 
 export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
+  req: any,
+  res: any
 ) {
     
-  if (res.socket.server.io) {
+  if (res.socket!.server.io) {
     console.log('Socket is already running')
   } else {
     console.log('Socket is initializing')
     const io = new Server(res.socket.server)
     res.socket.server.io = io
 
-    let sockets = {}
-    let roomTable = {}
+    let sockets:any = {}
+    let roomTable:any = {}
 
     io.sockets.on('connection', socket => {
         socket.on('disconnect', () => {
