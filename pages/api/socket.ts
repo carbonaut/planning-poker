@@ -1,3 +1,5 @@
+export default function handler(){}
+/* 
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Server } from 'socket.io'
 
@@ -106,3 +108,4 @@ export default function handler(
 
   res.end()
 }
+ */
