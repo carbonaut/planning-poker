@@ -40,6 +40,8 @@
 }
 
 .button {
+  cursor: pointer;
+  
   height: 40px;
   min-width: 310px;
   font-size: 20px;
@@ -49,4 +51,9 @@
   background-color: transparent;
   border-radius: 10px;
   margin-top: 20px;
+
+  &:hover {
+    background-color: #15C874;
+    color: #000;
+  }
 }
