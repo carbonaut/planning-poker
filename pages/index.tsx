@@ -4,6 +4,9 @@ import Login from '../components/Login/login'
 import styles from '../styles/Home.module.scss'
 
 const Home: NextPage = () => {
+  function createRoom () {
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -17,7 +20,7 @@ const Home: NextPage = () => {
       </div>
 
       <footer>
-        <p className={styles.footer}>Criar uma sala</p>
+        <p className={styles.footer} onClick={createRoom}>Criar uma sala</p>
       </footer>
     </div>
   )
