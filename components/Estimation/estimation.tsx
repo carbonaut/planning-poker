@@ -19,7 +19,9 @@ const Estimation = () => {
         <p className={styles.title}>Estimativa de tarefa</p>
         <p className={styles.description}>Quantas horas você acha que esta tarefa levará?</p>
         <RadioOptions></RadioOptions>
-        <Countdown duration={10} secondsLeft={10}></Countdown>
+        <div className={styles.countdown}>
+          <Countdown duration={10} secondsLeft={10}></Countdown>
+        </div>
       </>
       }
     </div>
