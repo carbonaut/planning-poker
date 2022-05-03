@@ -3,6 +3,7 @@ import styles from "./loadingRoom.module.scss";
 export interface LoadingProps {
   isScrumMaster: boolean;
   roomNumber: string;
+  onStart: any;
 }
 
 const LoadingRoom = (props: LoadingProps) => {
@@ -14,7 +15,9 @@ const LoadingRoom = (props: LoadingProps) => {
           <div className={styles.dashed}>
             <p> {props.roomNumber} </p>
           </div>
-          <button className={styles.button}>Iniciar votação</button>
+          <button className={styles.button} onClick={props.onStart}>
+            Iniciar votação
+          </button>
         </>
       ) : (
         <>
