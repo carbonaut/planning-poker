@@ -9,6 +9,9 @@ const Estimation = () => {
       { loading ? 
       <div>
         <p className={styles.title}>Aguardando inicio...</p>
+        <div className={styles.loadingIcon}>
+          <i className="bi bi-hourglass-split"></i>
+        </div>
       </div> :
       <></>}
     </div>
