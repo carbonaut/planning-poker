@@ -1,0 +1,20 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;  
+  background-color: #111111;
+}
+
+.content {
+  flex: 1 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer {
+  cursor: pointer;
+  color: #fff;
+}
