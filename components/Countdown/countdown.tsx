@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import styles from "../styles/Countdown.module.scss";
+import styles from "./countdown.module.scss";
 
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
