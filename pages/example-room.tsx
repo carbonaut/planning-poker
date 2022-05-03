@@ -1,9 +1,10 @@
 import type { NextPage } from 'next'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import io from 'Socket.IO-client'
 let socket
 
 const Home: NextPage = () => {
+  const [noDevs, setNoDevs] = useState(0)
   useEffect(() => () => {socketInitializer()}, [])
 
   const socketInitializer = async () => {
@@ -11,11 +12,21 @@ const Home: NextPage = () => {
     socket = io()
 
     socket.on('connect', () => {
-      console.log('connected')
+      socket.emit('room', '123')
+    })
+
+    socket.on('countUpdate', (data) => {
+        setNoDevs(data);
     })
   }
 
-  return null
+ 
+
+  return (
+    <div>
+      <h1>Room! Number of devs: {noDevs}</h1>
+    </div>
+  )
 }
 
 export default Home
