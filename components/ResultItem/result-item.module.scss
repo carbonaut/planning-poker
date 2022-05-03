@@ -1,0 +1,48 @@
+.item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.bar {
+    height: 16px;;
+    position: relative;
+    margin-left: 12px;
+    padding: 2px;
+
+    background: #4F575B;
+    border-radius: 16px;
+    flex-grow: 1;
+}
+
+.progress {
+    position: absolute;
+
+    border-radius: 16px;
+    height: calc(100% - 4px);
+    top: 2px;
+    left: 2px;
+
+    z-index: 0;
+
+}
+
+.label {
+    position: relative;
+    z-index: 1;
+    padding-left: 6px;
+
+    color: black;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+}
+
+.text {
+    width: 32px;
+    text-align: center;
+
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+}
