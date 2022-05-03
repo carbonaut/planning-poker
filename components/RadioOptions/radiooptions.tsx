@@ -2,7 +2,7 @@ import styles from "./radiooptions.module.scss";
 import { useState } from "react";
 
 const RadioOptions = () => {
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState(null);
   const hours = [1, 2, 3, 5, 8, 13, 21];
 
   function onChange(e) {
