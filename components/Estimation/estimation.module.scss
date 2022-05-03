@@ -10,3 +10,25 @@
   min-width: 500px;
   min-height: 300px;
 }
+
+.title {
+  color: #fff;
+  font-size: 30px;
+}
+
+.loadingIcon {
+  font-size: 100px;
+  text-align: center;
+  color: #fff;
+  animation: spin-animation 0.8s infinite;
+}
+
+@keyframes spin-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(359deg);
+  }
+}
