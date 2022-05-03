@@ -7,6 +7,15 @@
   background-color: #111111;
 }
 
+.icon {
+  margin-left: 15px;
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  align-self: flex-start;
+  color: #fff;
+}
+
 .content {
   flex: 1 0 auto;
   display: flex;
