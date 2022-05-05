@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   background-color: #111111;
+  padding-bottom: 20px;
 }
 
 .content {
@@ -16,8 +17,8 @@
 
 .footer {
   cursor: pointer;
-
-  color: #e4e8ea;
+  color: #d3d7d9;
+  margin: 0;
 
   &:hover {
     color: #fff;

@@ -3,9 +3,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;  
+  justify-content: center;
   background-color: #111111;
-  padding-bottom: 16px;
+  padding-bottom: 20px;
 }
 
 .icon {
@@ -25,6 +25,25 @@
 }
 
 .footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.action {
   cursor: pointer;
-  color: #fff;
+  color: #d3d7d9;
+  margin: 0;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.separator {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: #d3d7d9;
+  border-radius: 50%;
 }

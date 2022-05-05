@@ -5,12 +5,20 @@ import io from "socket.io-client";
 import Estimation from "../../components/Estimation/estimation";
 import styles from "../../styles/Room.module.scss";
 
+export interface RoomProps {
+  vote?: any;
+  isScrumMaster: boolean;
+}
+
 let socket: any;
 const Room: NextPage = () => {
   const router = useRouter();
   const { pid } = router.query;
 
   const [noDevs, setNoDevs] = useState(0);
+  const [scrumMaster, setScrumMaster] = useState(true);
+  const [vote, setVote] = useState(null);
+
   useEffect(
     () => () => {
       socketInitializer();
@@ -29,13 +37,21 @@ const Room: NextPage = () => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.icon}>
+        <i className="bi bi-people-fill"></i>
+        {noDevs}
+      </div>
       <div className={styles.content}>
-        <Estimation></Estimation>
+        <Estimation isScrumMaster={scrumMaster}></Estimation>
       </div>
 
-      <footer>
-        <p className={styles.footer}>Criar uma sala</p>
-      </footer>
+      {scrumMaster && (
+        <footer className={styles.footer}>
+          <p className={styles.action}>ID: 123456</p>
+          <span className={styles.separator}></span>
+          <p className={styles.action}>Encerrar sala</p>
+        </footer>
+      )}
     </div>
   );
 };

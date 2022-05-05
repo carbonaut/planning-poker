@@ -16,8 +16,9 @@ const ResultItem = (props: ResultItemProps) => {
         <div
           className={styles.progress}
           style={{ width: `${props.progress}%`, backgroundColor: props.color }}
-        ></div>
-        <div className={styles.label}>{props.labelVotes}</div>
+        >
+          <div className={styles.label}>{props.labelVotes}</div>
+        </div>
       </div>
     </div>
   );

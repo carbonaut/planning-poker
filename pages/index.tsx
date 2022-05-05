@@ -41,11 +41,9 @@ const Home: NextPage = () => {
       </div>
 
       <footer>
-        <p>
-          <a className={styles.footer} onClick={createRoom}>
-            Criar uma sala
-          </a>
-        </p>
+        <a className={styles.footer} onClick={createRoom}>
+          Criar uma sala
+        </a>
       </footer>
     </div>
   );

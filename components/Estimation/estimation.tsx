@@ -4,8 +4,9 @@ import { useState } from "react";
 import Countdown from "../Countdown/countdown";
 import LoadingRoom from "../LoadingRoom/loadingRoom";
 import Results from "../Results/results";
+import { RoomProps } from "../../pages/room/[id]";
 
-const Estimation = () => {
+const Estimation = (props: RoomProps) => {
   const duration = 5;
   const [loading, setLoading] = useState(true);
   const [secondsLeft, setSecondsLeft] = useState(duration);
@@ -44,7 +45,7 @@ const Estimation = () => {
     <div className={styles.container}>
       {loading ? (
         <LoadingRoom
-          isScrumMaster={true}
+          isScrumMaster={props.isScrumMaster}
           roomNumber={"651232"}
           onStart={start}
         ></LoadingRoom>

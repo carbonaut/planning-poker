@@ -7,6 +7,7 @@ import Router from "next/router";
 
 const Room: NextPage = () => {
   const [quantity, setQuantity] = useState(3);
+  const [scrumMaster, setScrumMaster] = useState(true);
 
   const createRoom = (): void => {
     Router.push(`/`);
@@ -19,11 +20,11 @@ const Room: NextPage = () => {
         {quantity}
       </div>
       <div className={styles.content}>
-        <Estimation></Estimation>
+        <Estimation isScrumMaster={scrumMaster}></Estimation>
       </div>
 
-      <footer>
-        <a className={styles.footer} onClick={createRoom}>
+      <footer className={styles.footer}>
+        <a className={styles.action} onClick={createRoom}>
           Criar uma sala
         </a>
       </footer>
