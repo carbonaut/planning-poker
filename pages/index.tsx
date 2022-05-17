@@ -6,10 +6,6 @@ import styles from "../styles/Home.module.scss";
 
 import Toast from "../components/Toast/toast";
 import { useState } from "react";
-import io from "socket.io-client";
-import { useEffect } from "react";
-
-let socket: any;
 
 const Home: NextPage = () => {
   const [errorMessage, setErrorMessage] = useState({
@@ -18,12 +14,6 @@ const Home: NextPage = () => {
     visible: false,
   });
   const [toastTimeout, setToastTimeout] = useState();
-  useEffect(
-    () => () => {
-      socketInitializer();
-    },
-    []
-  );
 
   const randomString = (): string => {
     const characters =
@@ -37,25 +27,15 @@ const Home: NextPage = () => {
     return result;
   };
 
-  const socketInitializer = async () => {
-    await fetch("/api/socket");
-    socket = io();
-
-    socket.on("countUpdate", (data: { count: number; id: string }) => {
-      Router.push(`/room/${data.id}`);
-    });
-  };
-
   const createRoom = (): void => {
     let roomId = randomString();
-    socket.emit("join", roomId);
+    Router.push(`/room/${roomId}`);
     sessionStorage.setItem("isHost", "true");
   };
 
   const visitRoom = (roomId: string): void => {
     Router.push(`/room/${roomId}`);
     sessionStorage.setItem("isHost", "false");
-    Router.push(`room/${roomId}`);
   };
 
   /**
