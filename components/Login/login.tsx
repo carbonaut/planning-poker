@@ -6,7 +6,7 @@ const Login = (props: any) => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>CarboLab</h2>
+      <h2 className={styles.title}>Planning Poker</h2>
       <input
         className={styles.input}
         type="text"

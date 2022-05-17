@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 24px;
   margin-top: auto;
   margin-bottom: auto;
 }
@@ -14,7 +14,7 @@
 .title {
   margin-top: 0;
   font-size: 30px;
-  color: #e4e8ea;
+  color: #E4E8EA;
   margin-bottom: 20px;
   font-weight: 400;
 }
@@ -22,10 +22,10 @@
 .input {
   font-family: Inter, sans-serif;
   border: 2px solid #4f575b;
+  border-radius: 8px;
   background-color: transparent;
   min-width: 100%;
-  height: 40px;
-  border-radius: 10px;
+  height: 56px;
   display: flex;
   align-items: center;
   text-align: center;
@@ -42,6 +42,7 @@
     font-size: 20px;
   }
 }
+
 
 .button {
   font-family: Inter, sans-serif;
@@ -60,7 +61,6 @@
 
   color: #000000;
   
-
   transition: font-size 295ms ease, background-color 295ms ease;
 
   &:hover {
