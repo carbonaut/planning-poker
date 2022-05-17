@@ -1,6 +1,5 @@
-export default function handler(){}
-/* 
 import type { NextApiRequest, NextApiResponse } from 'next'
+
 import { Server } from 'socket.io'
 
 type Data = {
@@ -63,7 +62,7 @@ export default function handler(
             room.count = room.count + 1
             roomTable[roomId] = room
             
-            io.sockets.in(roomId).emit('countUpdate', roomTable[roomId].count)
+            io.sockets.in(roomId).emit('countUpdate', { count: roomTable[roomId].count, id: roomId })
         })
 
         socket.on('start', () => {
@@ -108,4 +107,3 @@ export default function handler(
 
   res.end()
 }
- */

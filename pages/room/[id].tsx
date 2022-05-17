@@ -8,12 +8,13 @@ import styles from "../../styles/Room.module.scss";
 export interface RoomProps {
   vote?: any;
   isScrumMaster: boolean;
+  roomId: any;
 }
 
 let socket: any;
 const Room: NextPage = () => {
   const router = useRouter();
-  const { pid } = router.query;
+  const { id } = router.query;
 
   const [noDevs, setNoDevs] = useState(0);
   const [scrumMaster, setScrumMaster] = useState(true);
@@ -21,6 +22,9 @@ const Room: NextPage = () => {
 
   useEffect(
     () => () => {
+      const isHost = sessionStorage.getItem("isHost") || "false";
+      setScrumMaster(JSON.parse(isHost));
+
       socketInitializer();
     },
     []
@@ -31,7 +35,11 @@ const Room: NextPage = () => {
     socket = io();
 
     socket.on("connect", () => {
-      socket.emit("join", pid);
+      socket.emit("join", id);
+    });
+
+    socket.on("countUpdate", (data: any) => {
+      setNoDevs(data.count);
     });
   };
 
@@ -42,12 +50,12 @@ const Room: NextPage = () => {
         {noDevs}
       </div>
       <div className={styles.content}>
-        <Estimation isScrumMaster={scrumMaster}></Estimation>
+        <Estimation isScrumMaster={scrumMaster} roomId={id}></Estimation>
       </div>
 
       {scrumMaster && (
         <footer className={styles.footer}>
-          <p className={styles.action}>ID: 123456</p>
+          <p className={styles.action}>ID: {id}</p>
           <span className={styles.separator}></span>
           <p className={styles.action}>Encerrar sala</p>
         </footer>

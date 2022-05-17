@@ -15,9 +15,9 @@ const Estimation = (props: RoomProps) => {
 
   // voted
   const votes = [
-    { label: "13", count: 1, color: "#15C874", voted: vote === '13' },
-    { label: "8", count: 2, color: "#FBB751", voted: vote === '8' },
-    { label: "5", count: 1, color: "#00C6ED", voted: vote === '5' },
+    { label: "13", count: 1, color: "#15C874", voted: vote === "13" },
+    { label: "8", count: 2, color: "#FBB751", voted: vote === "8" },
+    { label: "5", count: 1, color: "#00C6ED", voted: vote === "5" },
   ];
 
   let timer: any;
@@ -45,14 +45,14 @@ const Estimation = (props: RoomProps) => {
 
   const voteFor = (e: any) => {
     setVote(e.target.value);
-  }
+  };
 
   return (
     <div className={styles.container}>
       {loading ? (
         <LoadingRoom
           isScrumMaster={props.isScrumMaster}
-          roomNumber={"651232"}
+          roomNumber={props.roomId}
           onStart={start}
         ></LoadingRoom>
       ) : (

@@ -3,8 +3,18 @@ import Router from "next/router";
 import Head from "next/head";
 import Login from "../components/Login/login";
 import styles from "../styles/Home.module.scss";
+import io from "socket.io-client";
+import { useEffect } from "react";
+let socket: any;
 
 const Home: NextPage = () => {
+  useEffect(
+    () => () => {
+      socketInitializer();
+    },
+    []
+  );
+
   const randomString = (): string => {
     const characters =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -17,15 +27,24 @@ const Home: NextPage = () => {
     return result;
   };
 
+  const socketInitializer = async () => {
+    await fetch("/api/socket");
+    socket = io();
+
+    socket.on("countUpdate", (data: { count: number; id: string }) => {
+      Router.push(`room/${data.id}`);
+    });
+  };
+
   const createRoom = (): void => {
     let roomId = randomString();
-    Router.push(`room/${roomId}`);
+    socket.emit("join", roomId);
     sessionStorage.setItem("isHost", "true");
   };
 
   const visitRoom = (roomId: string): void => {
-    sessionStorage.setItem("isHost", "false");
     Router.push(`room/${roomId}`);
+    sessionStorage.setItem("isHost", "false");
   };
 
   return (

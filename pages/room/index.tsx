@@ -20,7 +20,7 @@ const Room: NextPage = () => {
         {quantity}
       </div>
       <div className={styles.content}>
-        <Estimation isScrumMaster={scrumMaster}></Estimation>
+        <Estimation isScrumMaster={scrumMaster} roomId=""></Estimation>
       </div>
 
       <footer className={styles.footer}>
