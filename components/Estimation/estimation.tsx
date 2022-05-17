@@ -42,9 +42,19 @@ const Estimation = (props: RoomProps) => {
         tick();
       }, 1000);
     });
+
+    socket.on("finished", () => {
+      clearInterval(timer);
+      setRunning(false);
+    });
   };
 
   const start = () => {
+    setLoading(false);
+
+    timer = setInterval(() => {
+      tick();
+    }, 1000);
     socket = io();
 
     socket.emit("start");
@@ -60,6 +70,7 @@ const Estimation = (props: RoomProps) => {
   };
 
   const end = () => {
+    socket.emit("finish");
     clearInterval(timer);
     setRunning(false);
   };
