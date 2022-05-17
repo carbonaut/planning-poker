@@ -4,23 +4,21 @@ import { useEffect, useState } from "react";
 import Countdown from "../Countdown/countdown";
 import LoadingRoom from "../LoadingRoom/loadingRoom";
 import Results from "../Results/results";
-import { RoomProps } from "../../pages/room/[id]";
-import { io } from "socket.io-client";
-let socket: any;
+
+export interface RoomProps {
+  vote?: any;
+  isScrumMaster: boolean;
+  roomId: any;
+  onStart: () => any;
+  votes: any;
+}
 
 const Estimation = (props: RoomProps) => {
-  const duration = 5;
+  const duration = 10;
   const [loading, setLoading] = useState(true);
   const [secondsLeft, setSecondsLeft] = useState(duration);
   const [running, setRunning] = useState(true);
   const [vote, setVote] = useState(null);
-
-  useEffect(
-    () => () => {
-      socketInitializer();
-    },
-    []
-  );
 
   // voted
   const votes = [
@@ -31,33 +29,13 @@ const Estimation = (props: RoomProps) => {
 
   let timer: any;
 
-  const socketInitializer = async () => {
-    await fetch("/api/socket");
-    socket = io();
-
-    socket.on("started", () => {
-      setLoading(false);
-
-      timer = setInterval(() => {
-        tick();
-      }, 1000);
-    });
-
-    socket.on("finished", () => {
-      clearInterval(timer);
-      setRunning(false);
-    });
-  };
-
-  const start = () => {
+  const start = async () => {
+    await props.onStart();
     setLoading(false);
 
     timer = setInterval(() => {
       tick();
     }, 1000);
-    socket = io();
-
-    socket.emit("start");
   };
 
   const tick = () => {
@@ -70,7 +48,6 @@ const Estimation = (props: RoomProps) => {
   };
 
   const end = () => {
-    socket.emit("finish");
     clearInterval(timer);
     setRunning(false);
   };
@@ -105,7 +82,7 @@ const Estimation = (props: RoomProps) => {
             </>
           ) : (
             <div>
-              <Results votes={votes}></Results>
+              <Results votes={props.votes}></Results>
             </div>
           )}
         </>

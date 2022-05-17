@@ -5,12 +5,6 @@ import io from "socket.io-client";
 import Estimation from "../../components/Estimation/estimation";
 import styles from "../../styles/Room.module.scss";
 
-export interface RoomProps {
-  vote?: any;
-  isScrumMaster: boolean;
-  roomId: any;
-}
-
 let socket: any;
 const Room: NextPage = () => {
   const router = useRouter();
@@ -19,6 +13,13 @@ const Room: NextPage = () => {
   const [noDevs, setNoDevs] = useState(0);
   const [scrumMaster, setScrumMaster] = useState(true);
   const [vote, setVote] = useState(null);
+
+  // voted
+  const votes = [
+    { label: "13", count: 1, color: "#15C874", voted: vote === "13" },
+    { label: "8", count: 2, color: "#FBB751", voted: vote === "8" },
+    { label: "5", count: 1, color: "#00C6ED", voted: vote === "5" },
+  ];
 
   useEffect(
     () => () => {
@@ -31,8 +32,7 @@ const Room: NextPage = () => {
   );
 
   const socketInitializer = async () => {
-    await fetch("/api/socket");
-    socket = io();
+    socket = io("http://localhost:4200");
 
     socket.on("connect", () => {
       socket.emit("join", id);
@@ -43,6 +43,11 @@ const Room: NextPage = () => {
     });
   };
 
+  const startEstimation = () => {
+    console.log("here");
+    socket.emit("start");
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.icon}>
@@ -50,7 +55,12 @@ const Room: NextPage = () => {
         {noDevs}
       </div>
       <div className={styles.content}>
-        <Estimation isScrumMaster={scrumMaster} roomId={id}></Estimation>
+        <Estimation
+          isScrumMaster={scrumMaster}
+          roomId={id}
+          onStart={startEstimation}
+          votes={votes}
+        ></Estimation>
       </div>
 
       {scrumMaster && (
