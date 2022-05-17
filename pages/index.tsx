@@ -32,7 +32,7 @@ const Home: NextPage = () => {
     socket = io();
 
     socket.on("countUpdate", (data: { count: number; id: string }) => {
-      Router.push(`room/${data.id}`);
+      Router.push(`/room/${data.id}`);
     });
   };
 
@@ -43,7 +43,7 @@ const Home: NextPage = () => {
   };
 
   const visitRoom = (roomId: string): void => {
-    Router.push(`room/${roomId}`);
+    Router.push(`/room/${roomId}`);
     sessionStorage.setItem("isHost", "false");
   };
 

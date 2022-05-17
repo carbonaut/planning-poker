@@ -1,10 +1,12 @@
 import styles from "./estimation.module.scss";
 import RadioOptions from "../RadioOptions/radiooptions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Countdown from "../Countdown/countdown";
 import LoadingRoom from "../LoadingRoom/loadingRoom";
 import Results from "../Results/results";
 import { RoomProps } from "../../pages/room/[id]";
+import { io } from "socket.io-client";
+let socket: any;
 
 const Estimation = (props: RoomProps) => {
   const duration = 5;
@@ -12,6 +14,13 @@ const Estimation = (props: RoomProps) => {
   const [secondsLeft, setSecondsLeft] = useState(duration);
   const [running, setRunning] = useState(true);
   const [vote, setVote] = useState(null);
+
+  useEffect(
+    () => () => {
+      socketInitializer();
+    },
+    []
+  );
 
   // voted
   const votes = [
@@ -22,11 +31,23 @@ const Estimation = (props: RoomProps) => {
 
   let timer: any;
 
+  const socketInitializer = async () => {
+    await fetch("/api/socket");
+    socket = io();
+
+    socket.on("started", () => {
+      setLoading(false);
+
+      timer = setInterval(() => {
+        tick();
+      }, 1000);
+    });
+  };
+
   const start = () => {
-    setLoading(false);
-    timer = setInterval(() => {
-      tick();
-    }, 1000);
+    socket = io();
+
+    socket.emit("start");
   };
 
   const tick = () => {
