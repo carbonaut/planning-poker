@@ -6,9 +6,9 @@ import LoadingRoom from "../LoadingRoom/loadingRoom";
 import Results from "../Results/results";
 import { RoomProps } from "../../pages/room/[id]";
 import { io } from "socket.io-client";
-let socket: any;
 
 const Estimation = (props: RoomProps) => {
+  let socket: any = io("http://localhost:4200");
   const duration = 5;
   const [loading, setLoading] = useState(true);
   const [secondsLeft, setSecondsLeft] = useState(duration);
@@ -32,9 +32,6 @@ const Estimation = (props: RoomProps) => {
   let timer: any;
 
   const socketInitializer = async () => {
-    await fetch("/api/socket");
-    socket = io();
-
     socket.on("started", () => {
       setLoading(false);
 
@@ -43,6 +40,8 @@ const Estimation = (props: RoomProps) => {
       }, 1000);
     });
 
+    socket.on();
+
     socket.on("finished", () => {
       clearInterval(timer);
       setRunning(false);
@@ -50,13 +49,6 @@ const Estimation = (props: RoomProps) => {
   };
 
   const start = () => {
-    setLoading(false);
-
-    timer = setInterval(() => {
-      tick();
-    }, 1000);
-    socket = io();
-
     socket.emit("start");
   };
 
@@ -71,8 +63,6 @@ const Estimation = (props: RoomProps) => {
 
   const end = () => {
     socket.emit("finish");
-    clearInterval(timer);
-    setRunning(false);
   };
 
   const voteFor = (e: any) => {

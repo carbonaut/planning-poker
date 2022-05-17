@@ -31,8 +31,7 @@ const Room: NextPage = () => {
   );
 
   const socketInitializer = async () => {
-    await fetch("/api/socket");
-    socket = io();
+    socket = io("http://localhost:4200");
 
     socket.on("connect", () => {
       socket.emit("join", id);
