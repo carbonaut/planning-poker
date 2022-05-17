@@ -8,7 +8,7 @@ import styles from "./results.module.scss";
  * votes.color -> Background color for that estimation
  */
 interface ResultsProps {
-  votes: { label: string; count: number; color: string }[];
+  votes: { label: string; count: number; color: string; voted: boolean }[];
 }
 
 const Results = (props: ResultsProps) => {
@@ -31,6 +31,7 @@ const Results = (props: ResultsProps) => {
               color={el.color}
               labelItem={el.label}
               progress={progress}
+              voted={el.voted}
             ></ResultItem>
           );
         })}

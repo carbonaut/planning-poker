@@ -11,11 +11,13 @@ const Estimation = (props: RoomProps) => {
   const [loading, setLoading] = useState(true);
   const [secondsLeft, setSecondsLeft] = useState(duration);
   const [running, setRunning] = useState(true);
+  const [vote, setVote] = useState(null);
 
+  // voted
   const votes = [
-    { label: "13", count: 1, color: "#15C874" },
-    { label: "8", count: 2, color: "#FBB751" },
-    { label: "5", count: 1, color: "#00C6ED" },
+    { label: "13", count: 1, color: "#15C874", voted: vote === '13' },
+    { label: "8", count: 2, color: "#FBB751", voted: vote === '8' },
+    { label: "5", count: 1, color: "#00C6ED", voted: vote === '5' },
   ];
 
   let timer: any;
@@ -41,6 +43,10 @@ const Estimation = (props: RoomProps) => {
     setRunning(false);
   };
 
+  const voteFor = (e: any) => {
+    setVote(e.target.value);
+  }
+
   return (
     <div className={styles.container}>
       {loading ? (
@@ -57,7 +63,7 @@ const Estimation = (props: RoomProps) => {
               <p className={styles.description}>
                 Quantas horas você acha que esta tarefa levará?
               </p>
-              <RadioOptions></RadioOptions>
+              <RadioOptions onChange={voteFor}></RadioOptions>
               <div className={styles.countdown}>
                 <Countdown
                   duration={duration}
