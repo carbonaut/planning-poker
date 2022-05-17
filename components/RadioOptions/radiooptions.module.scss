@@ -10,8 +10,10 @@
 .input {
   display: none;
 
-  &:checked ~ .text {
+  &:checked~.text {
     background: #15c874;
+    border: unset;
+    color: #111;
   }
 }
 
@@ -25,9 +27,12 @@
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
-  background: #e4e8ea;
+  border: 2px solid #e4e8ea;
+  color: #e4e8ea;
 
   &:hover {
     background: #fff;
+    border: unset;
+    color: #111;
   }
 }
