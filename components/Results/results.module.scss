@@ -35,3 +35,31 @@
     opacity: 1;
   }
 }
+
+.result {
+  display: flex;
+  align-items: center;
+  color: #E4E8EA;
+  margin-top: auto;
+
+  span {
+    margin-bottom: 2px;
+  }
+}
+
+.icon {
+  font-size: 20px;
+  margin-right: 12px;
+}
+
+.green {
+  color: #15C874;
+}
+
+.yellow {
+  color: #FBB751;
+}
+
+.red {
+  color: #F04943;
+}

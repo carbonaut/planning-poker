@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import ResultItem from "../ResultItem/result-item";
 
 import styles from "./results.module.scss";
@@ -12,11 +13,40 @@ interface ResultsProps {
 }
 
 const Results = (props: ResultsProps) => {
+  const [result, setResult] = useState(0);
+
+  useEffect(() => {
+    getResults();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.votes]);
+
   const totalVotes = props.votes.reduce(
-    (currentValue, el) => currentValue + el.count,
-    0
+    (currentValue, el) => currentValue + el.count, 0
   );
+
   console.log(totalVotes);
+
+  function getResults() {
+    if (props.votes.length === 1) {
+      // consenso
+      return setResult(3);
+    }
+
+    let count = 0;
+
+    props.votes.forEach((item) => {
+      count += item.count;
+    });
+
+    if (count === props.votes[0].count * props.votes.length) {
+      // empate
+      setResult(1);
+    } else {
+      // resultado
+      setResult(2);
+    }
+  }
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Resultados</h2>
@@ -36,6 +66,21 @@ const Results = (props: ResultsProps) => {
           );
         })}
       </div>
+
+      {result === 1 && <div className={styles.result}>
+        <i className={`bi bi-exclamation-circle-fill ${styles.icon} ${styles.red}`}></i>
+          <span>Que pena, empatou <i className="bi bi-emoji-frown"></i></span>
+        </div>}
+
+      {result === 2 && <div className={styles.result}>
+        <i className={`bi bi-check-circle-fill ${styles.icon} ${styles.yellow}`}></i>
+          <span>Temos um resultado</span>
+        </div>}
+
+      {result === 3 && <div className={styles.result}>
+        <i className={`bi bi-check-circle-fill ${styles.icon} ${styles.green}`}></i>
+          <span>Temos consenso!</span>
+        </div>}
     </div>
   );
 };
