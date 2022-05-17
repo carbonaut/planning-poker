@@ -7,13 +7,24 @@ export interface LoadingProps {
 }
 
 const LoadingRoom = (props: LoadingProps) => {
+  async function copyID() {
+    // catch for chrome
+    await navigator.clipboard.writeText(props.roomNumber)
+    .then(() => {
+      // success toast
+    })
+    .catch(() => {
+      // error toast
+    })
+  }
+  
   return (
     <>
       {props.isScrumMaster ? (
         <>
           <p className={styles.title}>O ID da sala é:</p>
           <div className={styles.dashed}>
-            <p> {props.roomNumber} </p>
+            <p onClick={copyID}> {props.roomNumber} </p>
           </div>
           <button className={styles.button} onClick={props.onStart}>
             Iniciar votação
