@@ -39,12 +39,10 @@ const Home: NextPage = () => {
   const createRoom = (): void => {
     let roomId = randomString();
     Router.push(`/room/${roomId}?host=true`);
-    sessionStorage.setItem("isHost", "true");
   };
 
   const visitRoom = (roomId: string): void => {
     Router.push(`/room/${roomId}`);
-    sessionStorage.setItem("isHost", "false");
   };
 
   /**

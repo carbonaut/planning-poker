@@ -8,6 +8,7 @@ import styles from "../../styles/Room.module.scss";
 
 let socket: any;
 const Room: NextPage = () => {
+  let loaded = false;
   const duration = 8;
   const { query, isReady } = useRouter();
 
@@ -34,9 +35,11 @@ const Room: NextPage = () => {
   let timer: any;
 
   useEffect(() => {
-    if (!isReady) {
+    if (!isReady || loaded) {
       return;
     }
+
+    loaded = true;
 
     setScrumMaster(host ? true : false);
 
