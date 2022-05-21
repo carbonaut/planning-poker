@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
+import Button from "../../components/Button/button";
 import Estimation from "../../components/Estimation/estimation";
 import styles from "../../styles/Room.module.scss";
 
@@ -122,10 +123,18 @@ const Room: NextPage = () => {
       </div>
 
       {scrumMaster && (
-        <footer className={styles.footer}>
-          <p className={styles.action}>ID: {id}</p>
-          <span className={styles.separator}></span>
-          <p className={styles.action}>Encerrar sala</p>
+        <footer>
+          {started && !running ? (
+            <Button type="secondary" onClick={startEstimation}>
+              Estimar Novamente
+            </Button>
+          ) : (
+            <div className={styles.footer}>
+              <p className={styles.action}>ID: {id}</p>
+              <span className={styles.separator}></span>
+              <p className={styles.action}>Encerrar sala</p>
+            </div>
+          )}
         </footer>
       )}
     </div>

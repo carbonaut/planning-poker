@@ -50,11 +50,6 @@ const Estimation = (props: RoomProps) => {
 
   return (
     <div className={styles.container}>
-      {!loading && !props.running ? (
-        <Button onClick={props.onStart}>Restart</Button>
-      ) : (
-        <></>
-      )}
       {loading ? (
         <LoadingRoom
           isScrumMaster={props.isScrumMaster}
