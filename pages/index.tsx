@@ -38,7 +38,7 @@ const Home: NextPage = () => {
 
   const createRoom = (): void => {
     let roomId = randomString();
-    Router.push(`/room/${roomId}`);
+    Router.push(`/room/${roomId}?host=true`);
     sessionStorage.setItem("isHost", "true");
   };
 
@@ -97,7 +97,9 @@ const Home: NextPage = () => {
       </div>
 
       <footer className={styles.footer}>
-        <Button type="secondary">Criar Sala</Button>
+        <Button type="secondary" onClick={createRoom}>
+          Criar Sala
+        </Button>
       </footer>
     </div>
   );

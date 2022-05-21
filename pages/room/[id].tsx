@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import Estimation from "../../components/Estimation/estimation";
@@ -7,8 +7,9 @@ import styles from "../../styles/Room.module.scss";
 
 let socket: any;
 const Room: NextPage = () => {
-  const router = useRouter();
-  const { id } = router.query;
+  const { query, isReady } = useRouter();
+
+  const { id, host } = query;
 
   const [noDevs, setNoDevs] = useState(0);
   const [scrumMaster, setScrumMaster] = useState(true);
@@ -21,17 +22,16 @@ const Room: NextPage = () => {
     { label: "5", count: 1, color: "#00C6ED", voted: vote === "5" },
   ];
 
-  useEffect(
-    () => () => {
-      const isHost = sessionStorage.getItem("isHost") || "false";
-      setScrumMaster(JSON.parse(isHost));
+  useEffect(() => {
+    if (!isReady) {
+      return;
+    }
+    setScrumMaster(host ? true : false);
 
-      socketInitializer();
-    },
-    []
-  );
+    socketInitializer();
+  }, [isReady]);
 
-  const socketInitializer = async () => {
+  const socketInitializer = () => {
     socket = io("http://localhost:4200");
 
     socket.on("connect", () => {
@@ -44,7 +44,6 @@ const Room: NextPage = () => {
   };
 
   const startEstimation = () => {
-    console.log("here");
     socket.emit("start");
   };
 
