@@ -1,8 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Button from "../Button/button";
 import styles from "./login.module.scss";
 
-const Login = (props: any) => {
+interface LoginProps {
+  onVisitRoom: (value: string) => any;
+}
+
+const Login = (props: LoginProps) => {
   const [value, setValue] = useState("");
+  const [invalid, setInvalid] = useState(true);
+
+  useEffect(() => {
+    value.length === 0 ? setInvalid(true) : setInvalid(false);
+  }, [value]);
+
+  const join = () => {
+    props.onVisitRoom(value);
+  };
 
   return (
     <div className={styles.container}>
@@ -13,16 +27,9 @@ const Login = (props: any) => {
         placeholder="ID da sala"
         onChange={(ev) => setValue(ev.target.value)}
       />
-      <button
-        className={`${styles.button} ${
-          value.length == 0 ? styles.disabled : ""
-        }`}
-        onClick={() => {
-          props.onVisitRoom(value);
-        }}
-      >
+      <Button disabled={invalid} onClick={join}>
         Entrar
-      </button>
+      </Button>
     </div>
   );
 };
