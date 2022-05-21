@@ -5,6 +5,7 @@ import Countdown from "../Countdown/countdown";
 import LoadingRoom from "../LoadingRoom/loadingRoom";
 import Results from "../Results/results";
 import { io } from "socket.io-client";
+import Button from "../Button/button";
 export interface RoomProps {
   vote?: any;
   isScrumMaster: boolean;
@@ -15,6 +16,7 @@ export interface RoomProps {
   waiting: boolean;
   running: boolean;
   secondsLeft: number;
+  duration: number;
 }
 
 const Estimation = (props: RoomProps) => {
@@ -48,6 +50,11 @@ const Estimation = (props: RoomProps) => {
 
   return (
     <div className={styles.container}>
+      {!loading && !props.running ? (
+        <Button onClick={props.onStart}>Restart</Button>
+      ) : (
+        <></>
+      )}
       {loading ? (
         <LoadingRoom
           isScrumMaster={props.isScrumMaster}
@@ -65,7 +72,7 @@ const Estimation = (props: RoomProps) => {
               <RadioOptions onChange={voteFor}></RadioOptions>
               <div className={styles.countdown}>
                 <Countdown
-                  duration={duration}
+                  duration={props.duration}
                   secondsLeft={props.secondsLeft}
                 ></Countdown>
               </div>

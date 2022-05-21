@@ -7,6 +7,7 @@ import styles from "../../styles/Room.module.scss";
 
 let socket: any;
 const Room: NextPage = () => {
+  const duration = 8;
   const { query, isReady } = useRouter();
 
   const { id, host } = query;
@@ -54,6 +55,7 @@ const Room: NextPage = () => {
 
     socket.on("started", () => {
       setStarted(true);
+      setSecondsLeft(duration);
       timer = setInterval(() => {
         tick();
       }, 1000);
@@ -115,6 +117,7 @@ const Room: NextPage = () => {
           waiting={!started}
           running={running}
           secondsLeft={secondsLeft}
+          duration={duration}
         ></Estimation>
       </div>
 
