@@ -4,8 +4,14 @@ import { useEffect, useState } from "react";
 import Countdown from "../Countdown/countdown";
 import LoadingRoom from "../LoadingRoom/loadingRoom";
 import Results from "../Results/results";
-import { RoomProps } from "../../pages/room/[id]";
 import { io } from "socket.io-client";
+export interface RoomProps {
+  vote?: any;
+  isScrumMaster: boolean;
+  roomId: any;
+  onStart: () => any;
+  votes: any;
+}
 
 const Estimation = (props: RoomProps) => {
   let socket: any = io("http://localhost:4200");
@@ -14,13 +20,6 @@ const Estimation = (props: RoomProps) => {
   const [secondsLeft, setSecondsLeft] = useState(duration);
   const [running, setRunning] = useState(true);
   const [vote, setVote] = useState(null);
-
-  useEffect(
-    () => () => {
-      socketInitializer();
-    },
-    []
-  );
 
   // voted
   const votes = [
@@ -48,8 +47,14 @@ const Estimation = (props: RoomProps) => {
     });
   };
 
-  const start = () => {
+  const start = async () => {
     socket.emit("start");
+    await props.onStart();
+    setLoading(false);
+
+    timer = setInterval(() => {
+      tick();
+    }, 1000);
   };
 
   const tick = () => {
@@ -63,6 +68,8 @@ const Estimation = (props: RoomProps) => {
 
   const end = () => {
     socket.emit("finish");
+    clearInterval(timer);
+    setRunning(false);
   };
 
   const voteFor = (e: any) => {
@@ -95,7 +102,7 @@ const Estimation = (props: RoomProps) => {
             </>
           ) : (
             <div>
-              <Results votes={votes}></Results>
+              <Results votes={props.votes}></Results>
             </div>
           )}
         </>

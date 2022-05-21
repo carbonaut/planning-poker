@@ -4,6 +4,7 @@ import Estimation from "../../components/Estimation/estimation";
 import styles from "../../styles/Room.module.scss";
 
 import Router from "next/router";
+import Button from "../../components/Button/button";
 
 const Room: NextPage = () => {
   const [quantity, setQuantity] = useState(3);
@@ -24,9 +25,9 @@ const Room: NextPage = () => {
       </div>
 
       <footer className={styles.footer}>
-        <a className={styles.action} onClick={createRoom}>
-          Criar uma sala
-        </a>
+        <Button type="secondary" onClick={createRoom}>
+          Criar Sala
+        </Button>
       </footer>
     </div>
   );

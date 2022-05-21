@@ -1,10 +1,12 @@
 .container {
   background-color: #23292c;
+  width: 358px;
+  max-width: 100vw;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 24px;
   margin-top: auto;
   margin-bottom: auto;
 }
@@ -12,7 +14,7 @@
 .title {
   margin-top: 0;
   font-size: 30px;
-  color: #e4e8ea;
+  color: #E4E8EA;
   margin-bottom: 20px;
   font-weight: 400;
 }
@@ -20,10 +22,10 @@
 .input {
   font-family: Inter, sans-serif;
   border: 2px solid #4f575b;
+  border-radius: 8px;
   background-color: transparent;
   min-width: 100%;
-  height: 40px;
-  border-radius: 10px;
+  height: 56px;
   display: flex;
   align-items: center;
   text-align: center;
@@ -38,26 +40,5 @@
 
   &::placeholder {
     font-size: 20px;
-  }
-}
-
-.button {
-  font-family: Inter, sans-serif;
-  cursor: pointer;
-
-  height: 40px;
-  min-width: 100%;
-  font-size: 20px;
-  font-weight: 600;
-  color: #15c874;
-  border: 2px solid #15c874;
-  background-color: transparent;
-  border-radius: 10px;
-  margin-top: 20px;
-  font-family: Inter;
-
-  &:hover {
-    background-color: #15c874;
-    color: #111;
   }
 }

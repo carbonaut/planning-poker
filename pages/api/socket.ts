@@ -1,6 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-export default function handler(){}
-/*
+export {};
+/**
+ * import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { Server } from 'socket.io'
 
@@ -109,4 +109,5 @@ export default function handler(
 
   res.end()
 }
-*/
+
+**/

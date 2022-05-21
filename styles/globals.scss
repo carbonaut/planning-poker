@@ -28,3 +28,21 @@ a {
 * {
   box-sizing: border-box;
 }
+
+
+.bg-error {
+  background-color: #F04943;
+}
+
+.button {
+  cursor: pointer;
+  border: 0px;
+  background-color: transparent;
+  margin: 0px;
+  padding: 0px;
+}
+
+.button-icon {
+  font-size: 25px;
+  height: 28px;
+}
