@@ -11,14 +11,14 @@ export interface RoomProps {
   roomId: any;
   onStart: () => any;
   votes: any;
+  waiting: boolean;
   running: boolean;
+  secondsLeft: number;
 }
 
 const Estimation = (props: RoomProps) => {
   const duration = 5;
   const [loading, setLoading] = useState(true);
-  const [secondsLeft, setSecondsLeft] = useState(duration);
-  const [running, setRunning] = useState(true);
   const [vote, setVote] = useState(null);
 
   // voted
@@ -31,13 +31,10 @@ const Estimation = (props: RoomProps) => {
   let timer: any;
 
   useEffect(() => {
-    if (props.running !== undefined) {
-      setLoading(!props.running);
-      timer = setInterval(() => {
-        tick();
-      }, 1000);
+    if (props.waiting !== undefined) {
+      setLoading(props.waiting);
     }
-  }, [props.running]);
+  }, [props.waiting]);
 
   const socketInitializer = async () => {
     /*  socket.on("finished", () => {
@@ -49,26 +46,6 @@ const Estimation = (props: RoomProps) => {
   const start = async () => {
     /*     socket.emit("start"); */
     await props.onStart();
-    setLoading(false);
-
-    timer = setInterval(() => {
-      tick();
-    }, 1000);
-  };
-
-  const tick = () => {
-    setSecondsLeft((prev) => {
-      if (prev === 1) {
-        end();
-      }
-      return prev > 0 ? prev - 1 : 0;
-    });
-  };
-
-  const end = () => {
-    /*  socket.emit("finish"); */
-    clearInterval(timer);
-    setRunning(false);
   };
 
   const voteFor = (e: any) => {
@@ -85,7 +62,7 @@ const Estimation = (props: RoomProps) => {
         ></LoadingRoom>
       ) : (
         <>
-          {running ? (
+          {props.running ? (
             <>
               <p className={styles.title}>Estimativa de tarefa</p>
               <p className={styles.description}>
@@ -95,7 +72,7 @@ const Estimation = (props: RoomProps) => {
               <div className={styles.countdown}>
                 <Countdown
                   duration={duration}
-                  secondsLeft={secondsLeft}
+                  secondsLeft={props.secondsLeft}
                 ></Countdown>
               </div>
             </>

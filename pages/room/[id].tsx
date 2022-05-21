@@ -16,6 +16,11 @@ const Room: NextPage = () => {
   const [vote, setVote] = useState(null);
 
   const [started, setStarted] = useState(false);
+  const [running, setRunning] = useState(false);
+
+  const [secondsLeft, setSecondsLeft] = useState(5);
+
+  let timer: any;
 
   // voted
   const votes = [
@@ -46,11 +51,41 @@ const Room: NextPage = () => {
 
     socket.on("started", () => {
       setStarted(true);
+      timer = setInterval(() => {
+        tick();
+      }, 1000);
+
+      setRunning(true);
+    });
+
+    socket.on("finished", (data: any) => {
+      console.log(data);
+      clearInterval(timer);
+      setRunning(false);
     });
   };
 
   const startEstimation = () => {
     socket.emit("start");
+  };
+
+  const start = () => {
+    timer = setInterval(() => {
+      tick();
+    }, 1000);
+  };
+
+  const tick = () => {
+    setSecondsLeft((prev) => {
+      if (prev === 1) {
+        if (scrumMaster) endRound();
+      }
+      return prev > 0 ? prev - 1 : 0;
+    });
+  };
+
+  const endRound = () => {
+    socket.emit("finish");
   };
 
   return (
@@ -65,7 +100,9 @@ const Room: NextPage = () => {
           roomId={id}
           onStart={startEstimation}
           votes={votes}
-          running={started}
+          waiting={!started}
+          running={running}
+          secondsLeft={secondsLeft}
         ></Estimation>
       </div>
 
