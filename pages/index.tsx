@@ -6,6 +6,7 @@ import styles from "../styles/Home.module.scss";
 
 import Toast from "../components/Toast/toast";
 import { useState } from "react";
+import Button from "../components/Button/button";
 
 const Home: NextPage = () => {
   const [errorMessage, setErrorMessage] = useState({
@@ -87,10 +88,8 @@ const Home: NextPage = () => {
         <Login onVisitRoom={visitRoom}></Login>
       </div>
 
-      <footer>
-        <a className={styles.footer} onClick={createRoom}>
-          Criar uma sala
-        </a>
+      <footer className={styles.footer}>
+        <Button type="secondary">Criar Sala</Button>
       </footer>
     </div>
   );
