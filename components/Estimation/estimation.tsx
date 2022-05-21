@@ -11,10 +11,10 @@ export interface RoomProps {
   roomId: any;
   onStart: () => any;
   votes: any;
+  running: boolean;
 }
 
 const Estimation = (props: RoomProps) => {
-  let socket: any = io("http://localhost:4200");
   const duration = 5;
   const [loading, setLoading] = useState(true);
   const [secondsLeft, setSecondsLeft] = useState(duration);
@@ -30,25 +30,24 @@ const Estimation = (props: RoomProps) => {
 
   let timer: any;
 
-  const socketInitializer = async () => {
-    socket.on("started", () => {
-      setLoading(false);
-
+  useEffect(() => {
+    if (props.running !== undefined) {
+      setLoading(!props.running);
       timer = setInterval(() => {
         tick();
       }, 1000);
-    });
+    }
+  }, [props.running]);
 
-    socket.on();
-
-    socket.on("finished", () => {
+  const socketInitializer = async () => {
+    /*  socket.on("finished", () => {
       clearInterval(timer);
       setRunning(false);
-    });
+    }); */
   };
 
   const start = async () => {
-    socket.emit("start");
+    /*     socket.emit("start"); */
     await props.onStart();
     setLoading(false);
 
@@ -67,7 +66,7 @@ const Estimation = (props: RoomProps) => {
   };
 
   const end = () => {
-    socket.emit("finish");
+    /*  socket.emit("finish"); */
     clearInterval(timer);
     setRunning(false);
   };

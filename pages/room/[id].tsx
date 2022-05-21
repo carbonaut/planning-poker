@@ -15,6 +15,8 @@ const Room: NextPage = () => {
   const [scrumMaster, setScrumMaster] = useState(true);
   const [vote, setVote] = useState(null);
 
+  const [started, setStarted] = useState(false);
+
   // voted
   const votes = [
     { label: "13", count: 1, color: "#15C874", voted: vote === "13" },
@@ -41,6 +43,10 @@ const Room: NextPage = () => {
     socket.on("countUpdate", (data: any) => {
       setNoDevs(data.count);
     });
+
+    socket.on("started", () => {
+      setStarted(true);
+    });
   };
 
   const startEstimation = () => {
@@ -59,6 +65,7 @@ const Room: NextPage = () => {
           roomId={id}
           onStart={startEstimation}
           votes={votes}
+          running={started}
         ></Estimation>
       </div>
 
