@@ -13,26 +13,29 @@ const Room: NextPage = () => {
 
   const [noDevs, setNoDevs] = useState(0);
   const [scrumMaster, setScrumMaster] = useState(true);
-  const [vote, setVote] = useState(null);
 
   const [started, setStarted] = useState(false);
   const [running, setRunning] = useState(false);
 
   const [secondsLeft, setSecondsLeft] = useState(5);
 
-  let timer: any;
+  const [votes, setVotes] = useState({
+    1: { label: "1", count: 0, color: "#15C874", voted: false },
+    2: { label: "2", count: 0, color: "#15C874", voted: false },
+    3: { label: "3", count: 0, color: "#15C874", voted: false },
+    5: { label: "5", count: 0, color: "#15C874", voted: false },
+    8: { label: "8", count: 0, color: "#15C874", voted: false },
+    13: { label: "13", count: 0, color: "#15C874", voted: false },
+    21: { label: "21", count: 0, color: "#15C874", voted: false },
+  });
 
-  // voted
-  const votes = [
-    { label: "13", count: 1, color: "#15C874", voted: vote === "13" },
-    { label: "8", count: 2, color: "#FBB751", voted: vote === "8" },
-    { label: "5", count: 1, color: "#00C6ED", voted: vote === "5" },
-  ];
+  let timer: any;
 
   useEffect(() => {
     if (!isReady) {
       return;
     }
+
     setScrumMaster(host ? true : false);
 
     socketInitializer();
@@ -62,6 +65,7 @@ const Room: NextPage = () => {
       console.log(data);
       clearInterval(timer);
       setRunning(false);
+      setResults(data.votes);
     });
   };
 
@@ -69,10 +73,8 @@ const Room: NextPage = () => {
     socket.emit("start");
   };
 
-  const start = () => {
-    timer = setInterval(() => {
-      tick();
-    }, 1000);
+  const emitVote = (value: number) => {
+    socket.emit("vote", value);
   };
 
   const tick = () => {
@@ -88,6 +90,15 @@ const Room: NextPage = () => {
     socket.emit("finish");
   };
 
+  const setResults = (results: { [key: number]: number }) => {
+    Object.keys(results).forEach((vote) => {
+      const voteCpy = votes[vote];
+      voteCpy.count = results[vote];
+      const updatedVotes = { ...votes, voteCpy };
+      setVotes(updatedVotes);
+    });
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.icon}>
@@ -99,6 +110,7 @@ const Room: NextPage = () => {
           isScrumMaster={scrumMaster}
           roomId={id}
           onStart={startEstimation}
+          onVote={emitVote}
           votes={votes}
           waiting={!started}
           running={running}

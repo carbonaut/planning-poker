@@ -9,36 +9,60 @@ import styles from "./results.module.scss";
  * votes.color -> Background color for that estimation
  */
 interface ResultsProps {
-  votes: { label: string; count: number; color: string; voted: boolean }[];
+  votes: {
+    [key: number]: VoteItem;
+  };
 }
+
+type VoteItem = {
+  label: string;
+  count: number;
+  color: string;
+  voted: boolean;
+};
 
 const Results = (props: ResultsProps) => {
   const [result, setResult] = useState(0);
+  const [totalVotes, setTotalVotes] = useState(0);
+  const [normalized, setNormalized] = useState([]);
 
   useEffect(() => {
     getResults();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.votes]);
 
-  const totalVotes = props.votes.reduce(
-    (currentValue, el) => currentValue + el.count, 0
-  );
-
-  console.log(totalVotes);
-
   function getResults() {
-    if (props.votes.length === 1) {
+    // convert the results from hashmap to array
+    // removing elements with no votes
+    const withCount: any = Object.keys(props.votes)
+      .filter((el: any) => props.votes[el].count > 0)
+      .map((el: any) => props.votes[el]);
+
+    setNormalized(withCount);
+
+    // set the total number of votes
+    setTotalVotes(
+      Object.keys(props.votes).reduce(
+        (currentValue, el: any) => currentValue + props.votes[el].count,
+        0
+      )
+    );
+
+    if (normalized.length === 1) {
       // consenso
       return setResult(3);
     }
 
     let count = 0;
 
-    props.votes.forEach((item) => {
+    normalized.forEach((item: VoteItem) => {
       count += item.count;
     });
 
-    if (count === props.votes[0].count * props.votes.length) {
+    if (
+      normalized.length > 0 &&
+      count === normalized[0].count * normalized.length
+    ) {
       // empate
       setResult(1);
     } else {
@@ -51,7 +75,7 @@ const Results = (props: ResultsProps) => {
     <div className={styles.container}>
       <h2 className={styles.title}>Resultados</h2>
       <div className={styles.content}>
-        {props.votes.map((el, index) => {
+        {normalized.map((el: VoteItem, index) => {
           const progress = (el.count / totalVotes) * 100;
           const labelVoto = el.count === 1 ? "voto" : "votos";
           return (
@@ -67,20 +91,34 @@ const Results = (props: ResultsProps) => {
         })}
       </div>
 
-      {result === 1 && <div className={styles.result}>
-        <i className={`bi bi-exclamation-circle-fill ${styles.icon} ${styles.red}`}></i>
-          <span>Que pena, empatou <i className="bi bi-emoji-frown"></i></span>
-        </div>}
+      {result === 1 && (
+        <div className={styles.result}>
+          <i
+            className={`bi bi-exclamation-circle-fill ${styles.icon} ${styles.red}`}
+          ></i>
+          <span>
+            Que pena, empatou <i className="bi bi-emoji-frown"></i>
+          </span>
+        </div>
+      )}
 
-      {result === 2 && <div className={styles.result}>
-        <i className={`bi bi-check-circle-fill ${styles.icon} ${styles.yellow}`}></i>
+      {result === 2 && (
+        <div className={styles.result}>
+          <i
+            className={`bi bi-check-circle-fill ${styles.icon} ${styles.yellow}`}
+          ></i>
           <span>Temos um resultado</span>
-        </div>}
+        </div>
+      )}
 
-      {result === 3 && <div className={styles.result}>
-        <i className={`bi bi-check-circle-fill ${styles.icon} ${styles.green}`}></i>
+      {result === 3 && (
+        <div className={styles.result}>
+          <i
+            className={`bi bi-check-circle-fill ${styles.icon} ${styles.green}`}
+          ></i>
           <span>Temos consenso!</span>
-        </div>}
+        </div>
+      )}
     </div>
   );
 };

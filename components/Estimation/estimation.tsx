@@ -10,6 +10,7 @@ export interface RoomProps {
   isScrumMaster: boolean;
   roomId: any;
   onStart: () => any;
+  onVote: (value: number) => any;
   votes: any;
   waiting: boolean;
   running: boolean;
@@ -36,20 +37,13 @@ const Estimation = (props: RoomProps) => {
     }
   }, [props.waiting]);
 
-  const socketInitializer = async () => {
-    /*  socket.on("finished", () => {
-      clearInterval(timer);
-      setRunning(false);
-    }); */
-  };
-
   const start = async () => {
-    /*     socket.emit("start"); */
     await props.onStart();
   };
 
   const voteFor = (e: any) => {
     setVote(e.target.value);
+    props.onVote(e.target.value);
   };
 
   return (
