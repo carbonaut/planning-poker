@@ -94,7 +94,7 @@ const Room: NextPage = () => {
     Object.keys(results).forEach((vote) => {
       const voteCpy = votes[vote];
       voteCpy.count = results[vote];
-      const updatedVotes = { ...votes, voteCpy };
+      const updatedVotes = { ...votes, ...voteCpy };
       setVotes(updatedVotes);
     });
   };
