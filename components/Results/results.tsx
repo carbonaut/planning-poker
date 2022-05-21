@@ -31,7 +31,7 @@ const Results = (props: ResultsProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.votes]);
 
-  function getResults() {
+  const getResults = () => {
     // convert the results from hashmap to array
     // removing elements with no votes
     const withCount: any = Object.keys(props.votes)
@@ -40,28 +40,30 @@ const Results = (props: ResultsProps) => {
 
     setNormalized(withCount);
 
+    console.log(withCount);
+
     // set the total number of votes
     setTotalVotes(
-      Object.keys(props.votes).reduce(
-        (currentValue, el: any) => currentValue + props.votes[el].count,
+      withCount.reduce(
+        (currentValue: number, el: any) => currentValue + el.count,
         0
       )
     );
 
-    if (normalized.length === 1) {
+    if (withCount.length === 1) {
       // consenso
       return setResult(3);
     }
 
     let count = 0;
 
-    normalized.forEach((item: VoteItem) => {
+    withCount.forEach((item: VoteItem) => {
       count += item.count;
     });
 
     if (
-      normalized.length > 0 &&
-      count === normalized[0].count * normalized.length
+      withCount.length > 0 &&
+      count === withCount[0].count * withCount.length
     ) {
       // empate
       setResult(1);
@@ -69,7 +71,7 @@ const Results = (props: ResultsProps) => {
       // resultado
       setResult(2);
     }
-  }
+  };
 
   return (
     <div className={styles.container}>
