@@ -38,7 +38,9 @@ const Results = (props: ResultsProps) => {
   }, [props.votes]);
 
   useEffect(() => {
-    if (normalized.length === 0) return;
+    if (normalized.length === 0 || !props.ended) return;
+
+    setWinner(null);
 
     if (normalized.length === 1) {
       setWinner(normalized[0].label);
@@ -62,18 +64,18 @@ const Results = (props: ResultsProps) => {
       if (votesArray[winnerIndex - 1] === normalized[0].label) {
         setWinner(normalized[1].label);
         // resultado
-        setResult(2);
-      } else {
-        setResult(1);
+        return setResult(2);
       }
+
+      return setResult(1);
     } else if (
       normalized.length > 0 &&
       count === normalized[0].count * normalized.length
     ) {
       // empate
-      setResult(1);
+      return setResult(1);
     }
-  }, [props.ended]);
+  }, [props.ended, normalized]);
 
   const getResults = () => {
     // convert the results from hashmap to array
