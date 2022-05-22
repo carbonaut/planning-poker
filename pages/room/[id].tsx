@@ -30,13 +30,13 @@ const Room: NextPage = () => {
   const [secondsLeft, setSecondsLeft] = useState(5);
 
   const [votes, setVotes] = useState({
-    1: { label: "1", count: 0, color: "#15C874", voted: false },
-    2: { label: "2", count: 0, color: "#15C874", voted: false },
-    3: { label: "3", count: 0, color: "#15C874", voted: false },
-    5: { label: "5", count: 0, color: "#15C874", voted: false },
-    8: { label: "8", count: 0, color: "#15C874", voted: false },
-    13: { label: "13", count: 0, color: "#15C874", voted: false },
-    21: { label: "21", count: 0, color: "#15C874", voted: false },
+    1: { label: "1", count: 0, voted: false },
+    2: { label: "2", count: 0, voted: false },
+    3: { label: "3", count: 0, voted: false },
+    5: { label: "5", count: 0, voted: false },
+    8: { label: "8", count: 0, voted: false },
+    13: { label: "13", count: 0, voted: false },
+    21: { label: "21", count: 0, voted: false },
   });
 
   let timer: any;
@@ -76,7 +76,6 @@ const Room: NextPage = () => {
     });
 
     socket.on("finished", (data: any) => {
-      console.log(data);
       clearInterval(timer);
       setRunning(false);
       setResults(data.votes);

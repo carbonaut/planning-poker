@@ -61,7 +61,6 @@ const Home: NextPage = () => {
 
     // hides toast message after 3 seconds
     const eTimeout: any = setTimeout(() => {
-      console.log(toastTimeout);
       hideToast();
     }, 3000);
 
