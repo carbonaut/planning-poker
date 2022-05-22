@@ -17,29 +17,15 @@
 }
 
 .content {
-  color: #E4E8EA;
+  color: #e4e8ea;
   min-width: 220px;
   margin-top: 30px;
-
-  animation: fadeIn 1s ease;
-  animation-fill-mode: forwards;
-}
-
-@keyframes fadeIn {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
 }
 
 .result {
   display: flex;
   align-items: center;
-  color: #E4E8EA;
+  color: #e4e8ea;
   margin-top: auto;
 
   span {
@@ -53,13 +39,13 @@
 }
 
 .green {
-  color: #15C874;
+  color: #15c874;
 }
 
 .yellow {
-  color: #FBB751;
+  color: #fbb751;
 }
 
 .red {
-  color: #F04943;
+  color: #f04943;
 }

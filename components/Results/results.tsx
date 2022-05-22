@@ -16,6 +16,10 @@ interface ResultsProps {
   ended: boolean;
 }
 
+interface VotemItemColored extends VoteItem {
+  color: string;
+}
+
 type VoteItem = {
   label: string;
   count: number;
@@ -24,8 +28,9 @@ type VoteItem = {
 
 const Results = (props: ResultsProps) => {
   const [result, setResult] = useState(0);
+  const [winner, setWinner] = useState<string | null>(null);
   const [totalVotes, setTotalVotes] = useState(0);
-  const [normalized, setNormalized] = useState([]);
+  const [normalized, setNormalized] = useState<VotemItemColored[]>([]);
 
   useEffect(() => {
     getResults();
@@ -34,7 +39,9 @@ const Results = (props: ResultsProps) => {
 
   useEffect(() => {
     if (normalized.length === 0) return;
+
     if (normalized.length === 1) {
+      setWinner(normalized[0].label);
       // consenso
       return setResult(3);
     }
@@ -45,15 +52,26 @@ const Results = (props: ResultsProps) => {
       count += item.count;
     });
 
-    if (
+    if (normalized.length === 2) {
+      // check if both elements are immediate to one another
+      const votesArray = Object.keys(props.votes);
+      const winnerIndex = votesArray.findIndex(
+        (el) => el === normalized[1].label
+      );
+
+      if (votesArray[winnerIndex - 1] === normalized[0].label) {
+        setWinner(normalized[1].label);
+        // resultado
+        setResult(2);
+      } else {
+        setResult(1);
+      }
+    } else if (
       normalized.length > 0 &&
       count === normalized[0].count * normalized.length
     ) {
       // empate
       setResult(1);
-    } else {
-      // resultado
-      setResult(2);
     }
   }, [props.ended]);
 
@@ -69,8 +87,6 @@ const Results = (props: ResultsProps) => {
       .map((el: any) => props.votes[el]);
 
     setNormalized(withCount);
-
-    console.log(withCount);
 
     // set the total number of votes
     setTotalVotes(
@@ -92,7 +108,7 @@ const Results = (props: ResultsProps) => {
             <ResultItem
               key={index}
               labelVotes={`${el.count} ${labelVoto}`}
-              color={el.color}
+              color={winner === el.label ? "#15C874" : "#2D3336"}
               labelItem={el.label}
               progress={progress}
               voted={props.vote?.toString() == el.label}
@@ -106,9 +122,7 @@ const Results = (props: ResultsProps) => {
           <i
             className={`bi bi-exclamation-circle-fill ${styles.icon} ${styles.red}`}
           ></i>
-          <span>
-            Que pena, empatou <i className="bi bi-emoji-frown"></i>
-          </span>
+          <span>Vocês que lutem</span>
         </div>
       )}
 
