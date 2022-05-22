@@ -6,6 +6,12 @@ import Button from "../../components/Button/button";
 import Estimation from "../../components/Estimation/estimation";
 import styles from "../../styles/Room.module.scss";
 
+interface Vote {
+  label: string;
+  count: number;
+  voted: boolean;
+}
+
 let socket: any;
 const Room: NextPage = () => {
   let loaded = false;
@@ -29,7 +35,7 @@ const Room: NextPage = () => {
 
   const [secondsLeft, setSecondsLeft] = useState(5);
 
-  const [votes, setVotes] = useState({
+  const [votes, setVotes] = useState<{ [key: number]: Vote }>({
     1: { label: "1", count: 0, voted: false },
     2: { label: "2", count: 0, voted: false },
     3: { label: "3", count: 0, voted: false },
@@ -115,8 +121,9 @@ const Room: NextPage = () => {
     }
 
     Object.keys(results).forEach((vote) => {
-      const voteCpy = votes[vote];
-      voteCpy.count = results[vote];
+      const index = parseInt(vote);
+      const voteCpy = votes[index];
+      voteCpy.count = results[index];
       const updatedVotes = { ...votes, ...voteCpy };
       setVotes(updatedVotes);
     });

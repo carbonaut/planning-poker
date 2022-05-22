@@ -20,9 +20,7 @@ const Room: NextPage = () => {
         <i className="bi bi-people-fill"></i>
         {quantity}
       </div>
-      <div className={styles.content}>
-        <Estimation isScrumMaster={scrumMaster} roomId=""></Estimation>
-      </div>
+      <div className={styles.content}></div>
 
       <footer className={styles.footer}>
         <Button type="secondary" onClick={createRoom}>
