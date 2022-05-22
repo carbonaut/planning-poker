@@ -17,27 +17,24 @@ export interface RoomProps {
   running: boolean;
   secondsLeft: number;
   duration: number;
+  ended: boolean;
 }
 
 const Estimation = (props: RoomProps) => {
-  const duration = 5;
   const [loading, setLoading] = useState(true);
   const [vote, setVote] = useState(null);
-
-  // voted
-  const votes = [
-    { label: "13", count: 1, color: "#15C874", voted: vote === "13" },
-    { label: "8", count: 2, color: "#FBB751", voted: vote === "8" },
-    { label: "5", count: 1, color: "#00C6ED", voted: vote === "5" },
-  ];
-
-  let timer: any;
 
   useEffect(() => {
     if (props.waiting !== undefined) {
       setLoading(props.waiting);
     }
   }, [props.waiting]);
+
+  useEffect(() => {
+    if (props.running) {
+      setVote(null);
+    }
+  }, [props.running]);
 
   const start = async () => {
     await props.onStart();
@@ -74,7 +71,11 @@ const Estimation = (props: RoomProps) => {
             </>
           ) : (
             <div>
-              <Results votes={props.votes}></Results>
+              <Results
+                votes={props.votes}
+                vote={vote}
+                ended={props.ended}
+              ></Results>
             </div>
           )}
         </>

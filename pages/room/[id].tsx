@@ -17,8 +17,15 @@ const Room: NextPage = () => {
   const [noDevs, setNoDevs] = useState(0);
   const [scrumMaster, setScrumMaster] = useState(true);
 
+  // true room has started the voting session
   const [started, setStarted] = useState(false);
+
+  // true when the user is voting,
+  // false does not mean that the round has ended
   const [running, setRunning] = useState(false);
+
+  // true when the round has ended
+  const [ended, setEnded] = useState(false);
 
   const [secondsLeft, setSecondsLeft] = useState(5);
 
@@ -65,12 +72,18 @@ const Room: NextPage = () => {
       }, 1000);
 
       setRunning(true);
+      setEnded(false);
     });
 
     socket.on("finished", (data: any) => {
       console.log(data);
       clearInterval(timer);
       setRunning(false);
+      setResults(data.votes);
+      setEnded(true);
+    });
+
+    socket.on("voteUpdate", (data: any) => {
       setResults(data.votes);
     });
   };
@@ -81,6 +94,7 @@ const Room: NextPage = () => {
 
   const emitVote = (value: number) => {
     socket.emit("vote", value);
+    setRunning(false);
   };
 
   const tick = () => {
@@ -122,6 +136,7 @@ const Room: NextPage = () => {
           running={running}
           secondsLeft={secondsLeft}
           duration={duration}
+          ended={ended}
         ></Estimation>
       </div>
 

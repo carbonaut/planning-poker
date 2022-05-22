@@ -12,13 +12,14 @@ interface ResultsProps {
   votes: {
     [key: number]: VoteItem;
   };
+  vote: number | null;
+  ended: boolean;
 }
 
 type VoteItem = {
   label: string;
   count: number;
   color: string;
-  voted: boolean;
 };
 
 const Results = (props: ResultsProps) => {
@@ -31,9 +32,38 @@ const Results = (props: ResultsProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.votes]);
 
+  useEffect(() => {
+    if (normalized.length === 0) return;
+    if (normalized.length === 1) {
+      // consenso
+      return setResult(3);
+    }
+
+    let count = 0;
+
+    normalized.forEach((item: VoteItem) => {
+      count += item.count;
+    });
+
+    if (
+      normalized.length > 0 &&
+      count === normalized[0].count * normalized.length
+    ) {
+      // empate
+      setResult(1);
+    } else {
+      // resultado
+      setResult(2);
+    }
+  }, [props.ended]);
+
   const getResults = () => {
     // convert the results from hashmap to array
     // removing elements with no votes
+    if (!props.votes) {
+      return;
+    }
+
     const withCount: any = Object.keys(props.votes)
       .filter((el: any) => props.votes[el].count > 0)
       .map((el: any) => props.votes[el]);
@@ -49,28 +79,6 @@ const Results = (props: ResultsProps) => {
         0
       )
     );
-
-    if (withCount.length === 1) {
-      // consenso
-      return setResult(3);
-    }
-
-    let count = 0;
-
-    withCount.forEach((item: VoteItem) => {
-      count += item.count;
-    });
-
-    if (
-      withCount.length > 0 &&
-      count === withCount[0].count * withCount.length
-    ) {
-      // empate
-      setResult(1);
-    } else {
-      // resultado
-      setResult(2);
-    }
   };
 
   return (
@@ -87,7 +95,7 @@ const Results = (props: ResultsProps) => {
               color={el.color}
               labelItem={el.label}
               progress={progress}
-              voted={el.voted}
+              voted={props.vote?.toString() == el.label}
             ></ResultItem>
           );
         })}
