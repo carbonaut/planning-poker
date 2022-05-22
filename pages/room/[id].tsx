@@ -54,7 +54,7 @@ const Room: NextPage = () => {
   }, [isReady]);
 
   const socketInitializer = () => {
-    socket = io("http://localhost:4200");
+    socket = io("https://carbonaut-planning-poker.herokuapp.com");
 
     socket.on("connect", () => {
       socket.emit("join", id);
@@ -110,6 +110,10 @@ const Room: NextPage = () => {
   };
 
   const setResults = (results: { [key: number]: number }) => {
+    if (!results) {
+      return;
+    }
+
     Object.keys(results).forEach((vote) => {
       const voteCpy = votes[vote];
       voteCpy.count = results[vote];
