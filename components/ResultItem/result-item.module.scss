@@ -1,12 +1,15 @@
 .item {
   display: flex;
   align-items: center;
-  margin-bottom: 14px;
+  margin-bottom: 8px;
   position: relative;
+
+  animation: fadeIn 1s ease;
+  animation-fill-mode: forwards;
 }
 
 .bar {
-  height: 16px;
+  height: 24px;
   position: relative;
   margin-left: 12px;
   padding: 2px;
@@ -25,16 +28,22 @@
   display: inline-flex;
   align-items: center;
   white-space: nowrap;
+
+  transition: width 295ms ease;
 }
 
 .label {
   position: relative;
   z-index: 1;
   padding-left: 4px;
-  color: black;
+  color: #535e64;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 15px;
+}
+
+.contrast {
+  color: #111;
 }
 
 .text {
@@ -49,7 +58,7 @@
   display: flex;
   width: 16px;
   height: 16px;
-  background: #E4E8EA;
+  background: #e4e8ea;
   border-radius: 50%;
   color: #111;
   align-items: center;
@@ -59,4 +68,15 @@
   left: -24px;
   top: 50%;
   transform: translateY(-50%);
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
