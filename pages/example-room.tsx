@@ -24,9 +24,7 @@ const Home: NextPage = () => {
       setNoDevs(data);
     });
 
-    socket.on("voteUpdate", (data: any) => {
-      console.log(data);
-    });
+    socket.on("voteUpdate", (data: any) => {});
 
     socket.on("finished", (data: any) => {
       console.log("finished!", data);

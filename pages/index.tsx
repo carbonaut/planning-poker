@@ -28,15 +28,21 @@ const Home: NextPage = () => {
     return result;
   };
 
+  /*   const socketInitializer = async () => {
+    socket = io("http://localhost:4200");
+
+    socket.on("countUpdate", (data: { count: number; id: string }) => {
+      Router.push(`/room/${data.id}`);
+    });
+  }; */
+
   const createRoom = (): void => {
     let roomId = randomString();
-    Router.push(`/room/${roomId}`);
-    sessionStorage.setItem("isHost", "true");
+    Router.push(`/room/${roomId}?host=true`);
   };
 
   const visitRoom = (roomId: string): void => {
     Router.push(`/room/${roomId}`);
-    sessionStorage.setItem("isHost", "false");
   };
 
   /**
@@ -55,7 +61,6 @@ const Home: NextPage = () => {
 
     // hides toast message after 3 seconds
     const eTimeout: any = setTimeout(() => {
-      console.log(toastTimeout);
       hideToast();
     }, 3000);
 
@@ -89,7 +94,9 @@ const Home: NextPage = () => {
       </div>
 
       <footer className={styles.footer}>
-        <Button type="secondary">Criar Sala</Button>
+        <Button type="secondary" onClick={createRoom}>
+          Criar Sala
+        </Button>
       </footer>
     </div>
   );

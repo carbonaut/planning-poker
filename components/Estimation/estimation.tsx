@@ -4,56 +4,45 @@ import { useEffect, useState } from "react";
 import Countdown from "../Countdown/countdown";
 import LoadingRoom from "../LoadingRoom/loadingRoom";
 import Results from "../Results/results";
-
+import { io } from "socket.io-client";
+import Button from "../Button/button";
 export interface RoomProps {
   vote?: any;
   isScrumMaster: boolean;
   roomId: any;
   onStart: () => any;
+  onVote: (value: number) => any;
   votes: any;
+  waiting: boolean;
+  running: boolean;
+  secondsLeft: number;
+  duration: number;
+  ended: boolean;
 }
 
 const Estimation = (props: RoomProps) => {
-  const duration = 10;
   const [loading, setLoading] = useState(true);
-  const [secondsLeft, setSecondsLeft] = useState(duration);
-  const [running, setRunning] = useState(true);
   const [vote, setVote] = useState(null);
 
-  // voted
-  const votes = [
-    { label: "13", count: 1, color: "#15C874", voted: vote === "13" },
-    { label: "8", count: 2, color: "#FBB751", voted: vote === "8" },
-    { label: "5", count: 1, color: "#00C6ED", voted: vote === "5" },
-  ];
+  useEffect(() => {
+    if (props.waiting !== undefined) {
+      setLoading(props.waiting);
+    }
+  }, [props.waiting]);
 
-  let timer: any;
+  useEffect(() => {
+    if (props.running) {
+      setVote(null);
+    }
+  }, [props.running]);
 
   const start = async () => {
     await props.onStart();
-    setLoading(false);
-
-    timer = setInterval(() => {
-      tick();
-    }, 1000);
-  };
-
-  const tick = () => {
-    setSecondsLeft((prev) => {
-      if (prev === 1) {
-        end();
-      }
-      return prev > 0 ? prev - 1 : 0;
-    });
-  };
-
-  const end = () => {
-    clearInterval(timer);
-    setRunning(false);
   };
 
   const voteFor = (e: any) => {
     setVote(e.target.value);
+    props.onVote(e.target.value);
   };
 
   return (
@@ -66,7 +55,7 @@ const Estimation = (props: RoomProps) => {
         ></LoadingRoom>
       ) : (
         <>
-          {running ? (
+          {props.running ? (
             <>
               <p className={styles.title}>Estimativa de tarefa</p>
               <p className={styles.description}>
@@ -75,14 +64,18 @@ const Estimation = (props: RoomProps) => {
               <RadioOptions onChange={voteFor}></RadioOptions>
               <div className={styles.countdown}>
                 <Countdown
-                  duration={duration}
-                  secondsLeft={secondsLeft}
+                  duration={props.duration}
+                  secondsLeft={props.secondsLeft}
                 ></Countdown>
               </div>
             </>
           ) : (
             <div>
-              <Results votes={props.votes}></Results>
+              <Results
+                votes={props.votes}
+                vote={vote}
+                ended={props.ended}
+              ></Results>
             </div>
           )}
         </>
