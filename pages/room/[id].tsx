@@ -5,6 +5,7 @@ import io from "socket.io-client";
 import Button from "../../components/Button/button";
 import Estimation from "../../components/Estimation/estimation";
 import styles from "../../styles/Room.module.scss";
+import { getRoomMemberLink } from "../../utils/utils";
 
 interface Vote {
   label: string;
@@ -22,6 +23,7 @@ const Room: NextPage = () => {
 
   const [noDevs, setNoDevs] = useState(0);
   const [scrumMaster, setScrumMaster] = useState(true);
+  const [copied, setCopy] = useState(false);
 
   // true room has started the voting session
   const [started, setStarted] = useState(false);
@@ -129,6 +131,23 @@ const Room: NextPage = () => {
     });
   };
 
+  async function copyID() {
+    let link = getRoomMemberLink();
+
+    // catch for chrome
+    await navigator.clipboard
+      .writeText(link)
+      .then(() => {
+        setCopy(true);
+        setTimeout(() => {
+          setCopy(false);
+        }, 1000);
+      })
+      .catch(() => {
+        // error toast
+      });
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.icon}>
@@ -158,7 +177,17 @@ const Room: NextPage = () => {
             </Button>
           ) : (
             <div className={styles.footer}>
-              <p className={styles.action}>ID: {id}</p>
+              <p className={styles.action} onClick={copyID}>
+                ID: {id}{" "}
+                {!copied && (
+                  <i className={`bi bi-front ${styles.copyIcon}`}></i>
+                )}
+                {copied && (
+                  <i
+                    className={`bi bi-check-circle-fill ${styles.copyIcon}`}
+                  ></i>
+                )}
+              </p>
               <span className={styles.separator}></span>
               <p className={styles.action}>Encerrar sala</p>
             </div>
