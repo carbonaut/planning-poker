@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getRoomMemberLink } from "../../utils/utils";
 import styles from "./loadingRoom.module.scss";
 
 export interface LoadingProps {
@@ -11,11 +12,7 @@ const LoadingRoom = (props: LoadingProps) => {
   const [copied, setCopy] = useState(false);
 
   async function copyID() {
-    let link = window.location.href;
-
-    if (link.includes("?host=true")) {
-      link = link.replace("?host=true", "");
-    }
+    let link = getRoomMemberLink();
 
     // catch for chrome
     await navigator.clipboard

@@ -131,11 +131,7 @@ const Room: NextPage = () => {
   };
 
   async function copyID() {
-    let link = window.location.href;
-
-    if (link.includes("?host=true")) {
-      link = link.replace("?host=true", "");
-    }
+    let link = getRoomMemberLink();
 
     // catch for chrome
     await navigator.clipboard
