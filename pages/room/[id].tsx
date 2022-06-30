@@ -5,6 +5,7 @@ import io from "socket.io-client";
 import Button from "../../components/Button/button";
 import Estimation from "../../components/Estimation/estimation";
 import styles from "../../styles/Room.module.scss";
+import { getRoomMemberLink } from "../../utils/utils";
 
 interface Vote {
   label: string;
