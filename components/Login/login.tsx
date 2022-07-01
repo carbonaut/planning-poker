@@ -27,7 +27,7 @@ const Login = (props: LoginProps) => {
         placeholder="ID da sala"
         onChange={(ev) => setValue(ev.target.value)}
       />
-      <Button disabled={invalid} onClick={join}>
+      <Button disabled={invalid} onClick={join} hasMargin={true}>
         Entrar
       </Button>
     </div>

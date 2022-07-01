@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Router from "next/router";
 import router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
@@ -93,6 +94,10 @@ const Room: NextPage = () => {
     socket.on("voteUpdate", (data: any) => {
       setResults(data.votes);
     });
+
+    socket.on("roomHasClosed", () => {
+      Router.push("/");
+    });
   };
 
   const startEstimation = () => {
@@ -106,7 +111,7 @@ const Room: NextPage = () => {
 
   const tick = () => {
     setSecondsLeft((prev) => {
-      if (prev === 0) {
+      if (prev === 1) {
         if (scrumMaster) endRound();
       }
       return prev > 0 ? prev - 1 : 0;
@@ -130,6 +135,14 @@ const Room: NextPage = () => {
       setVotes(updatedVotes);
     });
   };
+
+  function closeRoom() {
+    socket.emit("closeRoom", id);
+  }
+
+  function leaveRoom() {
+    Router.push("/");
+  }
 
   async function copyID() {
     let link = getRoomMemberLink();
@@ -178,7 +191,7 @@ const Room: NextPage = () => {
           ) : (
             <div className={styles.footer}>
               <p className={styles.action} onClick={copyID}>
-                ID: {id}{" "}
+                ID da sala: {id}{" "}
                 {!copied && (
                   <i className={`bi bi-front ${styles.copyIcon}`}></i>
                 )}
@@ -188,10 +201,35 @@ const Room: NextPage = () => {
                   ></i>
                 )}
               </p>
-              <span className={styles.separator}></span>
-              <p className={styles.action}>Encerrar sala</p>
+              <div className={styles.leave}>
+                <Button
+                  type="secondary"
+                  onClick={closeRoom}
+                  color="red"
+                  large={false}
+                >
+                  Encerrar Sala
+                </Button>
+              </div>
             </div>
           )}
+        </footer>
+      )}
+
+      {!scrumMaster && (
+        <footer>
+          <div className={styles.footer}>
+            <div className={styles.leave}>
+              <Button
+                type="secondary"
+                onClick={leaveRoom}
+                color="red"
+                large={false}
+              >
+                Sair
+              </Button>
+            </div>
+          </div>
         </footer>
       )}
     </div>

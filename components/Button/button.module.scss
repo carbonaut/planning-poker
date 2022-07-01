@@ -7,7 +7,6 @@
   font-size: 20px;
   font-weight: 600;
   border-radius: 8px;
-  margin-top: 20px;
 
   background: #15c874;
   border-radius: 8px;
@@ -22,6 +21,10 @@
     color: #111;
     font-size: 21px;
   }
+}
+
+.buttonMargin {
+  margin-top: 20px;
 }
 
 .disabled {
@@ -39,8 +42,6 @@
 
 .secondary {
   height: 40px;
-  padding: 10px;
-  min-width: 310px;
 
   background-color: transparent;
   border: 2px solid #2ec4e6;
@@ -55,5 +56,23 @@
     color: #81e8ff;
     font-size: 16px;
     background-color: transparent;
+  }
+}
+
+.normalSize {
+  padding: 0 16px;
+}
+
+.large {
+  min-width: 310px;
+}
+
+.red {
+  border-color: #f04943;
+  color: #f04943;
+
+  &:hover {
+    border-color: #e76c69;
+    color: #e76c69;
   }
 }
