@@ -68,11 +68,11 @@
 }
 
 .red {
-  border-color: #f04943;
-  color: #f04943;
+  border-color: var(--color-red);
+  color: var(--color-red);
 
   &:hover {
-    border-color: #e76c69;
-    color: #e76c69;
+    border-color: var(--color-red-hover);
+    color: var(--color-red-hover);
   }
 }

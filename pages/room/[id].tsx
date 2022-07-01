@@ -111,7 +111,7 @@ const Room: NextPage = () => {
 
   const tick = () => {
     setSecondsLeft((prev) => {
-      if (prev === 1) {
+      if (prev === 0) {
         if (scrumMaster) endRound();
       }
       return prev > 0 ? prev - 1 : 0;
@@ -182,56 +182,41 @@ const Room: NextPage = () => {
         ></Estimation>
       </div>
 
-      {scrumMaster && (
-        <footer>
-          {started && !running ? (
-            <Button type="secondary" onClick={startEstimation}>
-              Estimar Novamente
-            </Button>
-          ) : (
-            <div className={styles.footer}>
-              <p className={styles.action} onClick={copyID}>
-                ID da sala: {id}{" "}
-                {!copied && (
-                  <i className={`bi bi-front ${styles.copyIcon}`}></i>
-                )}
-                {copied && (
-                  <i
-                    className={`bi bi-check-circle-fill ${styles.copyIcon}`}
-                  ></i>
-                )}
-              </p>
-              <div className={styles.leave}>
-                <Button
-                  type="secondary"
-                  onClick={closeRoom}
-                  color="red"
-                  large={false}
-                >
-                  Encerrar Sala
+      <footer>
+        <div className={styles.footer}>
+          {scrumMaster && (
+            <>
+              {started && !running ? (
+                <Button type="secondary" onClick={startEstimation}>
+                  Estimar Novamente
                 </Button>
-              </div>
-            </div>
+              ) : (
+                <p className={styles.action} onClick={copyID}>
+                  ID da sala: {id}{" "}
+                  {!copied && (
+                    <i className={`bi bi-front ${styles.copyIcon}`}></i>
+                  )}
+                  {copied && (
+                    <i
+                      className={`bi bi-check-circle-fill ${styles.copyIcon}`}
+                    ></i>
+                  )}
+                </p>
+              )}
+            </>
           )}
-        </footer>
-      )}
-
-      {!scrumMaster && (
-        <footer>
-          <div className={styles.footer}>
-            <div className={styles.leave}>
-              <Button
-                type="secondary"
-                onClick={leaveRoom}
-                color="red"
-                large={false}
-              >
-                Sair
-              </Button>
-            </div>
+          <div className={styles.leave}>
+            <Button
+              type="secondary"
+              onClick={scrumMaster ? closeRoom : leaveRoom}
+              color="red"
+              large={false}
+            >
+              {scrumMaster ? "Encerrar Sala" : "Sair"}
+            </Button>
           </div>
-        </footer>
-      )}
+        </div>
+      </footer>
     </div>
   );
 };
