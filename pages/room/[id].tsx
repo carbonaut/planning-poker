@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Head from "next/head";
 import router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
@@ -149,52 +150,57 @@ const Room: NextPage = () => {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.icon}>
-        <i className="bi bi-people-fill"></i>
-        {noDevs}
-      </div>
-      <div className={styles.content}>
-        <Estimation
-          isScrumMaster={scrumMaster}
-          roomId={id}
-          onStart={startEstimation}
-          onVote={emitVote}
-          votes={votes}
-          waiting={!started}
-          running={running}
-          secondsLeft={secondsLeft}
-          duration={duration}
-          ended={ended}
-        ></Estimation>
-      </div>
+    <>
+      <Head>
+        <title>Voting Room - Planning Poker</title>
+      </Head>
+      <div className={styles.container}>
+        <div className={styles.icon}>
+          <i className="bi bi-people-fill"></i>
+          {noDevs}
+        </div>
+        <div className={styles.content}>
+          <Estimation
+            isScrumMaster={scrumMaster}
+            roomId={id}
+            onStart={startEstimation}
+            onVote={emitVote}
+            votes={votes}
+            waiting={!started}
+            running={running}
+            secondsLeft={secondsLeft}
+            duration={duration}
+            ended={ended}
+          ></Estimation>
+        </div>
 
-      {scrumMaster && (
-        <footer>
-          {started && !running ? (
-            <Button type="secondary" onClick={startEstimation}>
-              Estimar Novamente
-            </Button>
-          ) : (
-            <div className={styles.footer}>
-              <p className={styles.action} onClick={copyID}>
-                ID: {id}{" "}
-                {!copied && (
-                  <i className={`bi bi-front ${styles.copyIcon}`}></i>
-                )}
-                {copied && (
-                  <i
-                    className={`bi bi-check-circle-fill ${styles.copyIcon}`}
-                  ></i>
-                )}
-              </p>
-              <span className={styles.separator}></span>
-              <p className={styles.action}>Encerrar sala</p>
-            </div>
-          )}
-        </footer>
-      )}
-    </div>
+        {scrumMaster && (
+          <footer>
+            {started && !running ? (
+              <Button type="secondary" onClick={startEstimation}>
+                Estimar Novamente
+              </Button>
+            ) : (
+              <div className={styles.footer}>
+                <p className={styles.action} onClick={copyID}>
+                  ID: {id}{" "}
+                  {!copied && (
+                    <i className={`bi bi-front ${styles.copyIcon}`}></i>
+                  )}
+                  {copied && (
+                    <i
+                      className={`bi bi-check-circle-fill ${styles.copyIcon}`}
+                    ></i>
+                  )}
+                </p>
+                <span className={styles.separator}></span>
+                <p className={styles.action}>Encerrar sala</p>
+              </div>
+            )}
+          </footer>
+        )}
+      </div>
+    </>
   );
 };
 

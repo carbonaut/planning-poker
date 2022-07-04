@@ -83,12 +83,6 @@ const Home: NextPage = () => {
         onHide={hideToast}
       ></Toast>
 
-      <Head>
-        <title>Planning Poker</title>
-        <meta name="description" content="Estimation app from Carbonaut" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <div className={styles.content}>
         <Login onVisitRoom={visitRoom}></Login>
       </div>
