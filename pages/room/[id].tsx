@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import Head from "next/head";
-import router, { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import Button from "../../components/Button/button";
@@ -94,6 +94,10 @@ const Room: NextPage = () => {
     socket.on("voteUpdate", (data: any) => {
       setResults(data.votes);
     });
+
+    socket.on("roomHasClosed", () => {
+      Router.push("/");
+    });
   };
 
   const startEstimation = () => {
@@ -131,6 +135,14 @@ const Room: NextPage = () => {
       setVotes(updatedVotes);
     });
   };
+
+  function closeRoom() {
+    socket.emit("closeRoom", id);
+  }
+
+  function leaveRoom() {
+    Router.push("/");
+  }
 
   async function copyID() {
     let link = getRoomMemberLink();
@@ -174,31 +186,41 @@ const Room: NextPage = () => {
           ></Estimation>
         </div>
 
-        {scrumMaster && (
-          <footer>
-            {started && !running ? (
-              <Button type="secondary" onClick={startEstimation}>
-                Estimar Novamente
-              </Button>
-            ) : (
-              <div className={styles.footer}>
-                <p className={styles.action} onClick={copyID}>
-                  ID: {id}{" "}
-                  {!copied && (
-                    <i className={`bi bi-front ${styles.copyIcon}`}></i>
-                  )}
-                  {copied && (
-                    <i
-                      className={`bi bi-check-circle-fill ${styles.copyIcon}`}
-                    ></i>
-                  )}
-                </p>
-                <span className={styles.separator}></span>
-                <p className={styles.action}>Encerrar sala</p>
-              </div>
+        <footer>
+          <div className={styles.footer}>
+            {scrumMaster && (
+              <>
+                {started && !running ? (
+                  <Button type="secondary" onClick={startEstimation}>
+                    Estimar Novamente
+                  </Button>
+                ) : (
+                  <p className={styles.action} onClick={copyID}>
+                    ID da sala: {id}{" "}
+                    {!copied && (
+                      <i className={`bi bi-front ${styles.copyIcon}`}></i>
+                    )}
+                    {copied && (
+                      <i
+                        className={`bi bi-check-circle-fill ${styles.copyIcon}`}
+                      ></i>
+                    )}
+                  </p>
+                )}
+              </>
             )}
-          </footer>
-        )}
+            <div className={styles.leave}>
+              <Button
+                type="secondary"
+                onClick={scrumMaster ? closeRoom : leaveRoom}
+                color="red"
+                large={false}
+              >
+                {scrumMaster ? "Encerrar Sala" : "Sair"}
+              </Button>
+            </div>
+          </div>
+        </footer>
       </div>
     </>
   );
