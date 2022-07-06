@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getRoomMemberLink } from "../../utils/utils";
 import styles from "./loadingRoom.module.scss";
 import Button from "../Button/button";
@@ -12,6 +12,11 @@ export interface LoadingProps {
 
 const LoadingRoom = (props: LoadingProps) => {
   const [copied, setCopy] = useState(false);
+  const [disabled, setDisable] = useState(true);
+
+  useEffect(() => {
+    props.noDevs > 1 ? setDisable(false) : setDisable(true);
+  }, [props.noDevs]);
 
   async function copyID() {
     let link = getRoomMemberLink();
@@ -31,7 +36,7 @@ const LoadingRoom = (props: LoadingProps) => {
   }
 
   function startVoting() {
-    if (props.noDevs > 1 ? false : true) {
+    if (disabled) {
       return;
     }
 
@@ -57,11 +62,7 @@ const LoadingRoom = (props: LoadingProps) => {
               )}
             </p>
           </div>
-          <Button
-            onClick={startVoting}
-            disabled={props.noDevs > 1 ? false : true}
-            hasMargin={true}
-          >
+          <Button onClick={startVoting} disabled={disabled} hasMargin={true}>
             Iniciar votação
           </Button>
         </>
