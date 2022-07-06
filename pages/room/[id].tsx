@@ -183,6 +183,7 @@ const Room: NextPage = () => {
             secondsLeft={secondsLeft}
             duration={duration}
             ended={ended}
+            noDevs={noDevs}
           ></Estimation>
         </div>
 

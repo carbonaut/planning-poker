@@ -29,7 +29,6 @@ const Button = ({
       onClick={onClick}
     >
       {children}
-      {hasMargin}
     </button>
   );
 };

@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { getRoomMemberLink } from "../../utils/utils";
 import styles from "./loadingRoom.module.scss";
+import Button from "../Button/button";
 
 export interface LoadingProps {
   isScrumMaster: boolean;
   roomNumber: string;
   onStart: any;
+  noDevs: number;
 }
 
 const LoadingRoom = (props: LoadingProps) => {
@@ -28,6 +30,14 @@ const LoadingRoom = (props: LoadingProps) => {
       });
   }
 
+  function startVoting() {
+    if (props.noDevs > 1 ? false : true) {
+      return;
+    }
+
+    props.onStart();
+  }
+
   return (
     <>
       {props.isScrumMaster ? (
@@ -47,9 +57,13 @@ const LoadingRoom = (props: LoadingProps) => {
               )}
             </p>
           </div>
-          <button className={styles.button} onClick={props.onStart}>
+          <Button
+            onClick={startVoting}
+            disabled={props.noDevs > 1 ? false : true}
+            hasMargin={true}
+          >
             Iniciar votação
-          </button>
+          </Button>
         </>
       ) : (
         <>

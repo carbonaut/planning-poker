@@ -18,6 +18,7 @@ export interface RoomProps {
   secondsLeft: number;
   duration: number;
   ended: boolean;
+  noDevs: number;
 }
 
 const Estimation = (props: RoomProps) => {
@@ -52,6 +53,7 @@ const Estimation = (props: RoomProps) => {
           isScrumMaster={props.isScrumMaster}
           roomNumber={props.roomId}
           onStart={start}
+          noDevs={props.noDevs}
         ></LoadingRoom>
       ) : (
         <>
