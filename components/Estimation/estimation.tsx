@@ -53,7 +53,7 @@ const Estimation = (props: RoomProps) => {
           isScrumMaster={props.isScrumMaster}
           roomNumber={props.roomId}
           onStart={start}
-          noDevs={props.noDevs}
+          disabled={props.noDevs > 1}
         ></LoadingRoom>
       ) : (
         <>

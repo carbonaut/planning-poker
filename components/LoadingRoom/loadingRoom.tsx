@@ -7,7 +7,7 @@ export interface LoadingProps {
   isScrumMaster: boolean;
   roomNumber: string;
   onStart: any;
-  noDevs: number;
+  disabled: boolean;
 }
 
 const LoadingRoom = (props: LoadingProps) => {
@@ -15,8 +15,8 @@ const LoadingRoom = (props: LoadingProps) => {
   const [disabled, setDisable] = useState(true);
 
   useEffect(() => {
-    props.noDevs > 1 ? setDisable(false) : setDisable(true);
-  }, [props.noDevs]);
+    props.disabled ? setDisable(false) : setDisable(true);
+  }, [props.disabled]);
 
   async function copyID() {
     let link = getRoomMemberLink();
