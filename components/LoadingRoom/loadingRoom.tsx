@@ -1,15 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getRoomMemberLink } from "../../utils/utils";
 import styles from "./loadingRoom.module.scss";
+import Button from "../Button/button";
 
 export interface LoadingProps {
   isScrumMaster: boolean;
   roomNumber: string;
   onStart: any;
+  disabled: boolean;
 }
 
 const LoadingRoom = (props: LoadingProps) => {
   const [copied, setCopy] = useState(false);
+  const [disabled, setDisable] = useState(true);
+
+  useEffect(() => {
+    props.disabled ? setDisable(false) : setDisable(true);
+  }, [props.disabled]);
 
   async function copyID() {
     let link = getRoomMemberLink();
@@ -26,6 +33,14 @@ const LoadingRoom = (props: LoadingProps) => {
       .catch(() => {
         // error toast
       });
+  }
+
+  function startVoting() {
+    if (disabled) {
+      return;
+    }
+
+    props.onStart();
   }
 
   return (
@@ -47,9 +62,9 @@ const LoadingRoom = (props: LoadingProps) => {
               )}
             </p>
           </div>
-          <button className={styles.button} onClick={props.onStart}>
+          <Button onClick={startVoting} disabled={disabled} hasMargin={true}>
             Iniciar votação
-          </button>
+          </Button>
         </>
       ) : (
         <>

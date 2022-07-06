@@ -39,27 +39,6 @@
   animation: spin-animation 0.8s infinite;
 }
 
-.button {
-  font-family: Inter, sans-serif;
-  cursor: pointer;
-
-  height: 40px;
-  min-width: 310px;
-  font-size: 20px;
-  font-weight: 600;
-  color: #15c874;
-  border: 2px solid #15c874;
-  background-color: transparent;
-  border-radius: 10px;
-  margin-top: 40px;
-  font-family: Inter;
-
-  &:hover {
-    background-color: #15c874;
-    color: #111;
-  }
-}
-
 @keyframes spin-animation {
   0% {
     transform: rotate(0deg);
