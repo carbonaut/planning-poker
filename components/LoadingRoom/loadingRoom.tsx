@@ -62,7 +62,7 @@ const LoadingRoom = (props: LoadingProps) => {
               )}
             </p>
           </div>
-          <Button onClick={startVoting} disabled={disabled} hasMargin={true}>
+          <Button onClick={startVoting} disabled={disabled}>
             Iniciar votação
           </Button>
         </>
