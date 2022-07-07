@@ -62,13 +62,15 @@ const LoadingRoom = (props: LoadingProps) => {
               )}
             </p>
           </div>
-          <Button onClick={startVoting} disabled={disabled} hasMargin={true}>
+          <Button onClick={startVoting} disabled={disabled}>
             Iniciar votação
           </Button>
         </>
       ) : (
         <>
-          <p className={styles.title}>Aguardando inicio...</p>
+          <p className={`${styles.title} ${styles.wide}`}>
+            Aguardando inicio...
+          </p>
           <div className={styles.loadingIcon}>
             <i className="bi bi-hourglass-split"></i>
           </div>

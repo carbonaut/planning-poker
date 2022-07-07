@@ -1,8 +1,13 @@
 .title {
   color: #fff;
   font-size: 30px;
-  margin-bottom: 36px;
+  margin-bottom: 30px;
   margin-top: 0;
+  text-align: center;
+}
+
+.wide {
+  width: 500px;
 }
 
 .description {
@@ -18,9 +23,10 @@
   color: #fff;
   font-size: 30px;
   height: 80px;
-  width: 350px;
+  width: 310px;
   border: 1px dashed #fff;
   border-radius: 16px;
+  margin-bottom: 24px;
 
   p {
     margin: 0;
