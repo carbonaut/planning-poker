@@ -68,7 +68,9 @@ const LoadingRoom = (props: LoadingProps) => {
         </>
       ) : (
         <>
-          <p className={styles.title}>Aguardando inicio...</p>
+          <p className={`${styles.title} ${styles.wide}`}>
+            Aguardando inicio...
+          </p>
           <div className={styles.loadingIcon}>
             <i className="bi bi-hourglass-split"></i>
           </div>
