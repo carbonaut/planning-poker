@@ -1,42 +1,41 @@
 .container {
-    position: fixed;
-    top: 22px;
-    z-index: 100;
+  position: fixed;
+  top: 22px;
+  z-index: 100;
 
-    max-width: 400px;
+  max-width: 400px;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    border-radius: 10px;
-    color: #111111;
-    padding: 4px 8px 4px 20px;
+  border-radius: 10px;
+  color: var(--color-gray-900);
+  padding: 4px 8px 4px 20px;
 
-    transform: translateY(-30px);
-    opacity: 0;
+  transform: translateY(-30px);
+  opacity: 0;
 
-    transition: transform 295ms ease, opacity 295ms ease;
+  transition: transform 295ms ease, opacity 295ms ease;
 }
 
 .text {
-    font-size: 16px;
-    text-align: center;
-    padding: 0px 10px;
+  font-size: 16px;
+  text-align: center;
+  padding: 0px 10px;
 }
 
 .active {
-    transform: translateY(0);
-    opacity: 1;
+  transform: translateY(0);
+  opacity: 1;
 }
 
-
 @keyframes slide-down {
-    from {
-        transform: translateY(-30px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

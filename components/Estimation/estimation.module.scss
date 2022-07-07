@@ -1,5 +1,5 @@
 .container {
-  background-color: #23292c;
+  background-color: var(--color-gray-800);
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -13,13 +13,13 @@
 
 .title {
   margin-top: 0;
-  color: #fff;
+  color: var(--color-white);
   font-size: 30px;
   margin-bottom: 20px;
 }
 
 .description {
-  color: #fff;
+  color: var(--color-white);
   margin-top: 0;
   font-size: 18px;
 }
@@ -27,7 +27,7 @@
 .loadingIcon {
   font-size: 100px;
   text-align: center;
-  color: #fff;
+  color: var(--color-white);
   animation: spin-animation 0.8s infinite;
 }
 

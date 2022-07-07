@@ -8,17 +8,17 @@
   font-weight: 600;
   border-radius: 8px;
 
-  background: #15c874;
+  background: var(--color-green);
   border-radius: 8px;
   border: 0px;
 
-  color: #000000;
+  color: var(--color-black);
 
   transition: font-size 295ms ease, background-color 295ms ease;
 
   &:hover {
-    background-color: #51ffa1;
-    color: #111;
+    background-color: var(--color-green-hover);
+    color: var(--color-gray-900);
     font-size: 21px;
   }
 }
@@ -28,14 +28,14 @@
 }
 
 .disabled {
-  background-color: #2d3336;
-  color: #535e64;
+  background-color: var(--color-disabled);
+  color: var(--color-gray-600);
 
   cursor: not-allowed;
 
   &:hover {
-    background-color: #2d3336;
-    color: #535e64;
+    background-color: var(--color-disabled);
+    color: var(--color-gray-600);
     font-size: 20px;
   }
 }
@@ -44,16 +44,16 @@
   height: 40px;
 
   background-color: transparent;
-  border: 2px solid #2ec4e6;
+  border: 2px solid var(--color-blue);
   border-radius: 8px;
 
-  color: #2ec4e5;
+  color: var(--color-blue);
 
   font-size: 16px;
 
   &:hover {
-    border-color: #81e8ff;
-    color: #81e8ff;
+    border-color: var(--color-blue-hover);
+    color: var(--color-blue-hover);
     font-size: 16px;
     background-color: transparent;
   }

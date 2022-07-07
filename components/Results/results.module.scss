@@ -1,5 +1,5 @@
 .container {
-  background-color: #23292c;
+  background-color: var(--color-gray-900);
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -17,7 +17,7 @@
 }
 
 .content {
-  color: #e4e8ea;
+  color: var(--color-gray-100);
   min-width: 220px;
   margin-top: 30px;
 }
@@ -25,7 +25,7 @@
 .result {
   display: flex;
   align-items: center;
-  color: #e4e8ea;
+  color: var(--color-gray-100);
   margin-top: auto;
 
   span {
@@ -39,13 +39,13 @@
 }
 
 .green {
-  color: #15c874;
+  color: var(--color-green);
 }
 
 .yellow {
-  color: #fbb751;
+  color: var(--color-yellow);
 }
 
 .red {
-  color: #f04943;
+  color: var(--color-red);
 }
