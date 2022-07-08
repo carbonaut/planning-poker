@@ -47,7 +47,7 @@ const Estimation = (props: RoomProps) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`l-container ${styles.container}`}>
       {loading ? (
         <LoadingRoom
           isScrumMaster={props.isScrumMaster}

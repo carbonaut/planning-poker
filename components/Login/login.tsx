@@ -19,7 +19,7 @@ const Login = (props: LoginProps) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`l-container ${styles.container}`}>
       <h2 className={styles.title}>Planning Poker</h2>
       <input
         className={styles.input}

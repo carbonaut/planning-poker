@@ -100,7 +100,7 @@ const Results = (props: ResultsProps) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`l-container ${styles.container}`}>
       <h2 className={styles.title}>Resultados</h2>
       <div className={styles.content}>
         {normalized.map((el: VoteItem, index) => {
