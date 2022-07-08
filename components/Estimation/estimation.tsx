@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import Countdown from "../Countdown/countdown";
 import LoadingRoom from "../LoadingRoom/loadingRoom";
 import Results from "../Results/results";
-import { io } from "socket.io-client";
-import Button from "../Button/button";
 export interface RoomProps {
   vote?: any;
   isScrumMaster: boolean;
