@@ -13,7 +13,7 @@
   position: relative;
   margin-left: 12px;
   padding: 2px;
-  background: #4f575b;
+  background: var(--color-gray-700);
   border-radius: 16px;
   flex-grow: 1;
 }
@@ -36,14 +36,14 @@
   position: relative;
   z-index: 1;
   padding-left: 4px;
-  color: #535e64;
+  color: var(--color-gray-600);
   font-weight: 500;
   font-size: 14px;
   line-height: 15px;
 }
 
 .contrast {
-  color: #111;
+  color: var(--color-gray-900);
 }
 
 .text {
@@ -58,9 +58,9 @@
   display: flex;
   width: 16px;
   height: 16px;
-  background: #e4e8ea;
+  background: var(--color-gray-100);
   border-radius: 50%;
-  color: #111;
+  color: var(--color-gray-900);
   align-items: center;
   justify-content: center;
   font-size: 12px;

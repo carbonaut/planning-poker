@@ -10,10 +10,10 @@
 .input {
   display: none;
 
-  &:checked~.text {
-    background: #15c874;
+  &:checked ~ .text {
+    background: var(--color-green);
     border: unset;
-    color: #111;
+    color: var(--color-gray-900);
   }
 }
 
@@ -27,12 +27,12 @@
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
-  border: 2px solid #e4e8ea;
-  color: #e4e8ea;
+  border: 2px solid var(--color-gray-100);
+  color: var(--color-gray-100);
 
   &:hover {
-    background: #fff;
+    background: var(--color-white);
     border: unset;
-    color: #111;
+    color: var(--color-gray-900);
   }
 }
