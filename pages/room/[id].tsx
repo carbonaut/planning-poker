@@ -23,7 +23,7 @@ const Room: NextPage = () => {
   const { id, host } = query;
 
   const [noDevs, setNoDevs] = useState(0);
-  const [scrumMaster, setScrumMaster] = useState(true);
+  const [scrumMaster, setScrumMaster] = useState(false);
   const [copied, setCopy] = useState(false);
 
   // true room has started the voting session
@@ -63,10 +63,10 @@ const Room: NextPage = () => {
   }, [isReady]);
 
   const socketInitializer = () => {
-    socket = io("https://carbonaut-planning-poker.herokuapp.com");
+    socket = io("http://localhost:4200");
 
     socket.on("connect", () => {
-      socket.emit("join", id);
+      socket.emit("join", [id, host || scrumMaster]);
     });
 
     socket.on("countUpdate", (data: any) => {
@@ -89,6 +89,10 @@ const Room: NextPage = () => {
       setRunning(false);
       setResults(data.votes);
       setEnded(true);
+    });
+
+    socket.on("hostAttempt", (data: boolean) => {
+      setScrumMaster(data);
     });
 
     socket.on("voteUpdate", (data: any) => {
