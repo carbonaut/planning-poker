@@ -37,16 +37,13 @@ const Home: NextPage = () => {
   };
 
   const showError = (message: string) => {
-    // avoids hiding a toast before the 3s ends
     if (toastTimeout) {
       clearTimeout(toastTimeout);
       setToastTimeout(undefined);
     }
 
-    // show the toast message
     setErrorMessage({ message, type: "error", visible: true });
 
-    // hides toast message after 3 seconds
     const eTimeout: any = setTimeout(() => {
       hideToast();
     }, 3000);
@@ -56,7 +53,6 @@ const Home: NextPage = () => {
 
   const hideToast = () => {
     setErrorMessage({ ...errorMessage, visible: false });
-    // clears the running timeout
     clearTimeout(toastTimeout);
     setToastTimeout(undefined);
   };
