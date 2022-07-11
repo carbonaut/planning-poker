@@ -1,9 +1,5 @@
-// components/layout.js
-
 import React, { useEffect, useState } from "react";
-
 import styles from "./countdown.module.scss";
-
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 

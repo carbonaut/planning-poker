@@ -44,7 +44,6 @@ const Results = (props: ResultsProps) => {
 
     if (normalized.length === 1) {
       setWinner(normalized[0].label);
-      // consenso
       return setResult(3);
     }
 
@@ -63,7 +62,6 @@ const Results = (props: ResultsProps) => {
 
       if (votesArray[winnerIndex - 1] === normalized[0].label) {
         setWinner(normalized[1].label);
-        // resultado
         return setResult(2);
       }
 
@@ -72,7 +70,6 @@ const Results = (props: ResultsProps) => {
       normalized.length > 0 &&
       count === normalized[0].count * normalized.length
     ) {
-      // empate
       return setResult(1);
     }
   }, [props.ended, normalized]);
@@ -90,7 +87,6 @@ const Results = (props: ResultsProps) => {
 
     setNormalized(withCount);
 
-    // set the total number of votes
     setTotalVotes(
       withCount.reduce(
         (currentValue: number, el: any) => currentValue + el.count,
