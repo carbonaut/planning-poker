@@ -5,7 +5,6 @@ export async function middleware(req) {
     return NextResponse.next();
   }
   if (pathname !== "/" && !pathname.includes("/room/")) {
-    console.log(pathname);
     return NextResponse.rewrite(`${origin}/`);
   }
   return NextResponse.next();
