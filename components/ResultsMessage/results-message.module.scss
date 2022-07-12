@@ -1,0 +1,18 @@
+.result {
+  display: flex;
+  align-items: center;
+  color: var(--color-gray-100);
+
+  span {
+    margin-bottom: 2px;
+  }
+}
+
+.icon {
+  font-size: 20px;
+  margin-right: 12px;
+}
+
+.red {
+  color: var(--color-red);
+}

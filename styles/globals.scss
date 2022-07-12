@@ -59,4 +59,16 @@ a {
   padding: 20px;
   margin-top: auto;
   margin-bottom: auto;
+
+  &--inner {
+    margin: -20px;
+  }
+}
+
+.u-color--green {
+  color: var(--color-green);
+}
+
+.u-color--red {
+  color: var(--color-red);
 }
