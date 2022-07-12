@@ -112,6 +112,8 @@ const Room: NextPage = () => {
   const tick = () => {
     setSecondsLeft((prev) => {
       if (prev === 0) {
+        setRunning(false);
+
         if (scrumMaster) endRound();
       }
       return prev > 0 ? prev - 1 : 0;
