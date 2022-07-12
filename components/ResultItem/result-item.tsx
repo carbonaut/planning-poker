@@ -7,6 +7,7 @@ interface ResultItemProps {
   progress: number;
   voted: boolean;
   winner: boolean;
+  status: number;
 }
 
 const ResultItem = (props: ResultItemProps) => {
@@ -31,6 +32,8 @@ const ResultItem = (props: ResultItemProps) => {
             width: `calc(${props.progress}% - 4px)`,
             backgroundColor: props.winner
               ? "var(--color-green)"
+              : props.status === 1
+              ? "var(--color-red)"
               : "var(--color-disabled)",
           }}
         >

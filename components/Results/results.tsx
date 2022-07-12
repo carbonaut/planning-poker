@@ -104,7 +104,7 @@ const Results = (props: ResultsProps) => {
         result === 3 ? styles.neon : ""
       }`}
     >
-      {props.vote && (
+      {(props.vote || props.votes) && (
         <>
           <h2 className={styles.title}>Resultados</h2>
           <div className={styles.content}>
@@ -119,11 +119,15 @@ const Results = (props: ResultsProps) => {
                   labelItem={el.label}
                   progress={progress}
                   voted={props.vote?.toString() == el.label}
+                  status={result}
                 ></ResultItem>
               );
             })}
           </div>
 
+          {props.vote && result < 1 && (
+            <div className={styles.emptyMessage}></div>
+          )}
           {result > 0 && (
             <div className={styles.result}>
               <ResultsMessage status={result} />
