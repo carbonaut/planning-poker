@@ -43,16 +43,7 @@ const ResultItem = (props: ResultItemProps) => {
             backgroundColor: getBgColor(),
           }}
         >
-          <div
-            className={styles.label}
-            style={{
-              color: `${
-                props.winner ? "var(--color-gray-900)" : "var(--color-gray-700)"
-              }`,
-            }}
-          >
-            {props.labelVotes}
-          </div>
+          <div className={styles.label}>{props.labelVotes}</div>
         </div>
       </div>
     </div>

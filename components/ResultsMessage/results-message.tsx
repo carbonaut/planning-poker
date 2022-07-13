@@ -9,7 +9,6 @@ const ResultsMessage = (props: ResultsMessageProps) => {
   const [message, setMessage] = useState("");
 
   const drawMessages = [
-    "Vocês que lutem",
     "Viiish",
     "Isso não deveria acontecer",
     "Não foi desta vez :(",

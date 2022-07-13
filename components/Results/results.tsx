@@ -109,7 +109,9 @@ const Results = (props: ResultsProps) => {
           <h2
             className={`${styles.title} ${result === 1 ? styles.rotated : ""}`}
           >
-            Resultados
+            {(result === 0 || result === 2) && "Resultados"}
+            {result === 1 && "Vocês que lutem"}
+            {result === 3 && "É teeeetra!"}
           </h2>
           <div className={styles.content}>
             {normalized.map((el: VoteItem, index) => {
