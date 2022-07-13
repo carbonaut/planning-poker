@@ -11,6 +11,16 @@ interface ResultItemProps {
 }
 
 const ResultItem = (props: ResultItemProps) => {
+  function getBgColor() {
+    if (props.winner) {
+      return "var(--color-green)";
+    } else if (props.status === 1) {
+      return "var(--color-red)";
+    } else {
+      return "var(--color-disabled)";
+    }
+  }
+
   return (
     <div className={styles.item}>
       {props.voted && (
@@ -30,11 +40,7 @@ const ResultItem = (props: ResultItemProps) => {
           className={styles.progress}
           style={{
             width: `calc(${props.progress}% - 4px)`,
-            backgroundColor: props.winner
-              ? "var(--color-green)"
-              : props.status === 1
-              ? "var(--color-red)"
-              : "var(--color-disabled)",
+            backgroundColor: getBgColor(),
           }}
         >
           <div

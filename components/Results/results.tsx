@@ -106,7 +106,11 @@ const Results = (props: ResultsProps) => {
     >
       {(props.vote || props.votes) && (
         <>
-          <h2 className={styles.title}>Resultados</h2>
+          <h2
+            className={`${styles.title} ${result === 1 ? styles.rotated : ""}`}
+          >
+            Resultados
+          </h2>
           <div className={styles.content}>
             {normalized.map((el: VoteItem, index) => {
               const progress = (el.count / totalVotes) * 100;

@@ -1,11 +1,17 @@
 .container {
   min-width: 500px;
   min-height: 300px;
+  transition: filter 0.3s ease-in-out;
 }
 
 .title {
   width: 100%;
   text-align: center;
+  transition: transform 0.2s ease-in;
+}
+
+.rotated {
+  transform: rotate(-5deg);
 }
 
 .content {
@@ -52,5 +58,5 @@
 }
 
 .neon {
-  filter: drop-shadow(0 0 20px #15c87470);
+  filter: drop-shadow(0 0 20px var(--color-green-70));
 }
