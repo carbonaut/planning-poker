@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ResultItem from "../ResultItem/result-item";
+import ResultsMessage from "../ResultsMessage/results-message";
 
 import styles from "./results.module.scss";
 
@@ -38,39 +39,41 @@ const Results = (props: ResultsProps) => {
   }, [props.votes]);
 
   useEffect(() => {
-    if (normalized.length === 0 || !props.ended) return;
-
-    setWinner(null);
+    if (normalized.length === 0 || !props.ended) {
+      setResult(0);
+      return;
+    }
 
     if (normalized.length === 1) {
       setWinner(normalized[0].label);
-      return setResult(3);
+      setResult(3);
+      return;
     }
 
-    let count = 0;
+    let votesSum = 0;
 
-    normalized.forEach((item: VoteItem) => {
-      count += item.count;
+    normalized.forEach((i) => {
+      votesSum += i.count;
     });
 
-    if (normalized.length === 2) {
-      // check if both elements are immediate to one another
-      const votesArray = Object.keys(props.votes);
-      const winnerIndex = votesArray.findIndex(
-        (el) => el === normalized[1].label
-      );
+    if (votesSum === normalized[0].count * normalized.length) {
+      setWinner(null);
+      setResult(1);
+      return;
+    } else {
+      let mostVotedIndex = -1;
+      normalized.forEach((vote, i) => {
+        if (
+          mostVotedIndex < 0 ||
+          vote.count > normalized[mostVotedIndex].count
+        ) {
+          mostVotedIndex = i;
+        }
+      });
 
-      if (votesArray[winnerIndex - 1] === normalized[0].label) {
-        setWinner(normalized[1].label);
-        return setResult(2);
-      }
-
-      return setResult(1);
-    } else if (
-      normalized.length > 0 &&
-      count === normalized[0].count * normalized.length
-    ) {
-      return setResult(1);
+      setWinner(normalized[mostVotedIndex].label);
+      setResult(2);
+      return;
     }
   }, [props.ended, normalized]);
 
@@ -96,49 +99,56 @@ const Results = (props: ResultsProps) => {
   };
 
   return (
-    <div className={`l-container ${styles.container}`}>
-      <h2 className={styles.title}>Resultados</h2>
-      <div className={styles.content}>
-        {normalized.map((el: VoteItem, index) => {
-          const progress = (el.count / totalVotes) * 100;
-          const labelVoto = el.count === 1 ? "voto" : "votos";
-          return (
-            <ResultItem
-              key={index}
-              labelVotes={`${el.count} ${labelVoto}`}
-              color={winner === el.label ? "#15C874" : "#2D3336"}
-              labelItem={el.label}
-              progress={progress}
-              voted={props.vote?.toString() == el.label}
-            ></ResultItem>
-          );
-        })}
-      </div>
+    <div
+      className={`l-container l-container--inner ${styles.container} ${
+        result === 3 ? styles.neon : ""
+      }`}
+    >
+      {(props.vote || props.votes) && (
+        <>
+          <h2
+            className={`${styles.title} ${result === 1 ? styles.rotated : ""}`}
+          >
+            {(result === 0 || result === 2) && "Resultados"}
+            {result === 1 && "Vocês que lutem"}
+            {result === 3 && "É teeeetra!"}
+          </h2>
+          <div className={styles.content}>
+            {normalized.map((el: VoteItem, index) => {
+              const progress = (el.count / totalVotes) * 100;
+              const labelVoto = el.count === 1 ? "voto" : "votos";
+              return (
+                <ResultItem
+                  key={index}
+                  labelVotes={`${el.count} ${labelVoto}`}
+                  winner={winner === el.label}
+                  labelItem={el.label}
+                  progress={progress}
+                  voted={props.vote?.toString() == el.label}
+                  status={result}
+                ></ResultItem>
+              );
+            })}
+          </div>
 
-      {result === 1 && (
-        <div className={styles.result}>
-          <i
-            className={`bi bi-exclamation-circle-fill ${styles.icon} ${styles.red}`}
-          ></i>
-          <span>Vocês que lutem</span>
-        </div>
+          {props.vote && result < 1 && (
+            <div className={styles.emptyMessage}></div>
+          )}
+          {result > 0 && (
+            <div className={styles.result}>
+              <ResultsMessage status={result} />
+            </div>
+          )}
+        </>
       )}
 
-      {result === 2 && (
-        <div className={styles.result}>
-          <i
-            className={`bi bi-check-circle-fill ${styles.icon} ${styles.yellow}`}
-          ></i>
-          <span>Temos um resultado</span>
-        </div>
-      )}
-
-      {result === 3 && (
-        <div className={styles.result}>
-          <i
-            className={`bi bi-check-circle-fill ${styles.icon} ${styles.green}`}
-          ></i>
-          <span>Temos consenso!</span>
+      {!props.vote && result === 0 && (
+        <div className={styles.empty}>
+          <img src="/stars.svg" />
+          <p className={styles.emptyText}>
+            Não há nada além de um grande vazio
+          </p>
+          <p className={styles.emptyText}>Esqueceram de votar?</p>
         </div>
       )}
     </div>
