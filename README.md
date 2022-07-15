@@ -51,7 +51,7 @@ In this CarboLab, we chose [Next.js](https://nextjs.org/) because of its popular
 
 The backend was built by front-end developers and uses `node.js` and `express` to create the peer-to-peer connection between participants, which are connected through `socket.io rooms`. The room code is generated on the front end, and anyone with the same code can join the same room.
 
-## Wanna work with us?
+## Want to work with us?
 
 We are Carbonaut, a brazillian P&D studio in Curitiba/PR. We have a small, dedicated team that seeks quality in any aspect, in our code and our lifes :smile:
 We are always searching for new faces to join us to keep this growth journey with us! Visit our [page](https://carbonaut.io/contact) to check the openings
