@@ -73,9 +73,11 @@ const Room: NextPage = () => {
       setNoDevs(data.count);
     });
 
+    /*
     socket.on("clientError", (error: { message: string }) => {
       console.log(error.message);
     });
+    */
 
     socket.on("started", () => {
       setStarted(true);
