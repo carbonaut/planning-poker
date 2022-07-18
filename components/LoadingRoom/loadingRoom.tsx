@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getRoomMemberLink } from "../../utils/utils";
 import styles from "./loadingRoom.module.scss";
 import Button from "../Button/button";
+import { useAppContext } from "../../utils/ToastContext";
 
 export interface LoadingProps {
   isScrumMaster: boolean;
@@ -13,6 +14,7 @@ export interface LoadingProps {
 const LoadingRoom = (props: LoadingProps) => {
   const [copied, setCopy] = useState(false);
   const [disabled, setDisable] = useState(true);
+  const { setMessage } = useAppContext();
 
   useEffect(() => {
     props.disabled ? setDisable(false) : setDisable(true);
@@ -31,7 +33,7 @@ const LoadingRoom = (props: LoadingProps) => {
         }, 1000);
       })
       .catch(() => {
-        // error toast
+        setMessage("Erro ao copiar");
       });
   }
 

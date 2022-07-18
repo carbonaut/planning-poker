@@ -12,14 +12,12 @@ const Toast = (props: ToastProps) => {
     <div
       className={`${styles.container} bg-${props.type} ${
         props.visible ? styles.active : ""
-      }`}
+      } ${props.type === "error" ? styles.error : ""}`}
     >
       <div className={styles.text}>{props.message}</div>
-      <div className={styles.button}>
-        <button className="button button-icon" onClick={props.onHide}>
-          <i className="bi bi-x"></i>
-        </button>
-      </div>
+      <button className={styles.button} onClick={props.onHide}>
+        <i className={`bi bi-x ${styles.icon}`}></i>
+      </button>
     </div>
   );
 };

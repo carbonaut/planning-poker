@@ -1,6 +1,7 @@
 .container {
   position: fixed;
   top: 22px;
+  left: 50%;
   z-index: 100;
 
   max-width: 400px;
@@ -10,12 +11,36 @@
 
   border-radius: 10px;
   color: var(--color-gray-900);
-  padding: 4px 8px 4px 20px;
+  background: var(--color-gray-100);
+  padding: 10px;
 
-  transform: translateY(-30px);
   opacity: 0;
 
   transition: transform 295ms ease, opacity 295ms ease;
+}
+
+.error {
+  background: var(--color-red);
+
+  &:hover {
+    background: var(--color-red-hover);
+  }
+}
+
+.button {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-size: 22px;
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  margin-left: 6px;
+  margin-top: 2px;
 }
 
 .text {
@@ -25,17 +50,17 @@
 }
 
 .active {
-  transform: translateY(0);
+  transform: translate(-50%, 0);
   opacity: 1;
 }
 
 @keyframes slide-down {
   from {
-    transform: translateY(-30px);
+    transform: translate(-50%, -30px);
     opacity: 0;
   }
   to {
-    transform: translateY(0);
+    transform: translate(-50%, 0);
     opacity: 1;
   }
 }
