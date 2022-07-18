@@ -1,13 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import Toast from "../components/Toast/toast";
 
-/* eslint-ignore-next-line */
 const AppContext = createContext<any | undefined>(undefined);
 
 const initialStatus = { type: "", visible: false };
 
 export function ToastContext({ children }) {
-  const [message, setMessage] = useState("test message");
+  const [message, setMessage] = useState("");
   const [messageStatus, setMessageStatus] = useState(initialStatus);
   const [toastTimeout, setToastTimeout] = useState();
 

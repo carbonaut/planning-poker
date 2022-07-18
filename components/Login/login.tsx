@@ -24,7 +24,7 @@ const Login = (props: LoginProps) => {
 
   function keyDown(event: any) {
     // keycode 13 = enter
-    if (event.keyCode !== 13) {
+    if (event.keyCode !== 13 || event.key !== "Enter") {
       return;
     }
 

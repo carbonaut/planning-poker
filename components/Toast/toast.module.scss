@@ -21,6 +21,10 @@
 
 .error {
   background: var(--color-red);
+
+  &:hover {
+    background: var(--color-red-hover);
+  }
 }
 
 .button {
