@@ -11,21 +11,36 @@ const Login = (props: LoginProps) => {
   const [invalid, setInvalid] = useState(true);
 
   useEffect(() => {
-    value.length === 0 ? setInvalid(true) : setInvalid(false);
+    value.length !== 6 ? setInvalid(true) : setInvalid(false);
   }, [value]);
 
   const join = () => {
+    if (invalid) {
+      return;
+    }
+
     props.onVisitRoom(value);
   };
+
+  function keyDown(event: any) {
+    // keycode 13 = enter
+    if (event.keyCode !== 13) {
+      return;
+    }
+
+    join();
+  }
 
   return (
     <div className={`l-container ${styles.container}`}>
       <h2 className={styles.title}>Planning Poker</h2>
       <input
-        className={styles.input}
+        className={`${styles.input} ${!invalid ? styles.inputSuccess : ""}`}
+        maxLength={6}
         type="text"
         placeholder="ID da sala"
         onChange={(ev) => setValue(ev.target.value)}
+        onKeyDown={keyDown}
       />
       <Button disabled={invalid} onClick={join} hasMargin={true}>
         Entrar

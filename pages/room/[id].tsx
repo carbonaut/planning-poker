@@ -6,6 +6,7 @@ import io from "socket.io-client";
 import Button from "../../components/Button/button";
 import Estimation from "../../components/Estimation/estimation";
 import styles from "../../styles/Room.module.scss";
+import { useAppContext } from "../../utils/ToastContext";
 import { getRoomMemberLink } from "../../utils/utils";
 
 interface Vote {
@@ -19,6 +20,7 @@ const Room: NextPage = () => {
   let loaded = false;
   const duration = 8;
   const { query, isReady } = useRouter();
+  const { setMessage } = useAppContext();
 
   const { id, host } = query;
 
@@ -73,11 +75,9 @@ const Room: NextPage = () => {
       setNoDevs(data.count);
     });
 
-    /*
     socket.on("clientError", (error: { message: string }) => {
-      console.log(error.message);
+      setMessage(error.message);
     });
-    */
 
     socket.on("started", () => {
       setStarted(true);
