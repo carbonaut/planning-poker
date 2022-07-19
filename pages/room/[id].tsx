@@ -64,6 +64,13 @@ const Room: NextPage = () => {
     socketInitializer();
   }, [isReady]);
 
+  async function getStaticPaths() {
+    return {
+      paths: [{ params: { id: id } }],
+      fallback: true,
+    };
+  }
+
   const socketInitializer = () => {
     socket = io("https://carbonaut-planning-poker.herokuapp.com");
 
