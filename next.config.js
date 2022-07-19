@@ -4,7 +4,7 @@ const nextConfig = {
   exportPathMap: async function () {
     return {
       "/": { page: "/" },
-      "/room/[id]": { page: "/room/[id]", query: { title: "host" } },
+      "/room/[id]": { page: "/room/[id]" },
     };
   },
 };
