@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import Head from "next/head";
 import Router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import io from "socket.io-client";
+import io, { Socket } from "socket.io-client";
 import Button from "../../components/Button/button";
 import Estimation from "../../components/Estimation/estimation";
 import styles from "../../styles/Room.module.scss";
@@ -15,7 +15,7 @@ interface Vote {
   voted: boolean;
 }
 
-let socket: any;
+let socket: Socket;
 const Room: NextPage = () => {
   let loaded = false;
   const duration = 8;
@@ -151,6 +151,7 @@ const Room: NextPage = () => {
   }
 
   function leaveRoom() {
+    socket.disconnect();
     Router.push("/");
   }
 
