@@ -29,6 +29,7 @@
   display: inline-flex;
   align-items: center;
   white-space: nowrap;
+  min-width: fit-content;
 
   transition: width 295ms ease;
 }
@@ -36,7 +37,7 @@
 .label {
   position: relative;
   z-index: 1;
-  padding-left: 4px;
+  padding: 0 8px;
   color: var(--color-gray-900);
   font-weight: 500;
   font-size: 14px;
