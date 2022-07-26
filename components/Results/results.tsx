@@ -51,19 +51,7 @@ const Results = (props: ResultsProps) => {
       return;
     }
 
-    let votesSum = 0;
-
-    normalized.forEach((i) => {
-      votesSum += i.count;
-    });
-
-    if (votesSum === normalized[0].count * normalized.length) {
-      setWinner(null);
-      setResult(1);
-      return;
-    } else {
-      setDraw();
-    }
+    setDraw();
   }, [props.ended, normalized]);
 
   const getResults = () => {
@@ -99,17 +87,33 @@ const Results = (props: ResultsProps) => {
       return item.count === mostVotesQuantity;
     });
 
-    if (winnerVotes.length >= 2) {
-      if (winnerVotes[1].order - winnerVotes[0].order <= 1) {
-        setWinner(winnerVotes[1].label);
+    setWinnerOnDraw(winnerVotes);
+  };
+
+  const setWinnerOnDraw = (votes: VotemItemColored[]) => {
+    const { length } = votes;
+
+    if (length === 1) {
+      setWinner(votes[0].label);
+      setResult(2);
+      return;
+    }
+
+    if (length > 2 && length < 4) {
+      const closeVotes = votes.filter((item, i) => {
+        if (i === 0) {
+          return votes[i + 1].order - item.order === 1;
+        }
+
+        return item.order - votes[i - 1].order === 1;
+      });
+
+      if (closeVotes.length >= 1) {
+        setWinner(closeVotes[closeVotes.length - 1].label);
 
         setResult(2);
         return;
       }
-    } else if (winnerVotes.length === 1) {
-      setWinner(winnerVotes[0].label);
-      setResult(2);
-      return;
     }
 
     setResult(1);
