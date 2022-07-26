@@ -25,6 +25,7 @@ type VoteItem = {
   label: string;
   count: number;
   color: string;
+  order: number;
 };
 
 const Results = (props: ResultsProps) => {
@@ -61,19 +62,7 @@ const Results = (props: ResultsProps) => {
       setResult(1);
       return;
     } else {
-      let mostVotedIndex = -1;
-      normalized.forEach((vote, i) => {
-        if (
-          mostVotedIndex < 0 ||
-          vote.count > normalized[mostVotedIndex].count
-        ) {
-          mostVotedIndex = i;
-        }
-      });
-
-      setWinner(normalized[mostVotedIndex].label);
-      setResult(2);
-      return;
+      setDraw();
     }
   }, [props.ended, normalized]);
 
@@ -96,6 +85,35 @@ const Results = (props: ResultsProps) => {
         0
       )
     );
+  };
+
+  const setDraw = () => {
+    let mostVotesQuantity = 0;
+    normalized.forEach((vote, i) => {
+      if (vote.count > mostVotesQuantity) {
+        mostVotesQuantity = vote.count;
+      }
+    });
+
+    const winnerVotes = normalized.filter((item, i) => {
+      return item.count === mostVotesQuantity;
+    });
+
+    if (winnerVotes.length >= 2) {
+      if (winnerVotes[1].order - winnerVotes[0].order <= 1) {
+        setWinner(winnerVotes[1].label);
+
+        setResult(2);
+        return;
+      }
+    } else if (winnerVotes.length === 1) {
+      setWinner(winnerVotes[0].label);
+      setResult(2);
+      return;
+    }
+
+    setResult(1);
+    return;
   };
 
   return (

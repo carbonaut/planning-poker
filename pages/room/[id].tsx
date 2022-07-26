@@ -13,6 +13,7 @@ interface Vote {
   label: string;
   count: number;
   voted: boolean;
+  order: number;
 }
 
 let socket: Socket;
@@ -41,13 +42,13 @@ const Room: NextPage = () => {
   const [secondsLeft, setSecondsLeft] = useState(5);
 
   const [votes, setVotes] = useState<{ [key: number]: Vote }>({
-    1: { label: "1", count: 0, voted: false },
-    2: { label: "2", count: 0, voted: false },
-    3: { label: "3", count: 0, voted: false },
-    5: { label: "5", count: 0, voted: false },
-    8: { label: "8", count: 0, voted: false },
-    13: { label: "13", count: 0, voted: false },
-    21: { label: "21", count: 0, voted: false },
+    1: { label: "1", count: 0, voted: false, order: 1 },
+    2: { label: "2", count: 0, voted: false, order: 2 },
+    3: { label: "3", count: 0, voted: false, order: 3 },
+    5: { label: "5", count: 0, voted: false, order: 4 },
+    8: { label: "8", count: 0, voted: false, order: 5 },
+    13: { label: "13", count: 0, voted: false, order: 6 },
+    21: { label: "21", count: 0, voted: false, order: 7 },
   });
 
   let timer: any;
@@ -122,7 +123,13 @@ const Room: NextPage = () => {
   const tick = () => {
     setSecondsLeft((prev) => {
       if (prev === 0) {
-        if (scrumMaster) endRound();
+        if (scrumMaster) {
+          endRound();
+        }
+
+        setRunning(false);
+        setEnded(true);
+        clearInterval(timer);
       }
       return prev > 0 ? prev - 1 : 0;
     });
