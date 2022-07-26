@@ -6,7 +6,7 @@ Collaborative Planning Poker tool for agile teams used internally at [Carbonaut]
 
 ![image](https://user-images.githubusercontent.com/66211955/179299318-f71a85f2-5191-4cfe-b8b1-b4bb5e071024.png)
 
-You can join a room with other team members and estimate tasks using the [Fibonacci sequence](https://en.wikipedia.org/wiki/Fibonacci_number). The creator of the room is the one who decides when to begin an estimation or close a room.
+You can join a room with other team members and estimate tasks using the [Fibonacci sequence](https://en.wikipedia.org/wiki/Fibonacci_number). The creator of the room is the one who decides when to begin an estimation or close a room..
 
 An estimation is chosen if:
 
