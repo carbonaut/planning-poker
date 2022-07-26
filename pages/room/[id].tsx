@@ -39,7 +39,7 @@ const Room: NextPage = () => {
   // true when the round has ended
   const [ended, setEnded] = useState(false);
 
-  const [secondsLeft, setSecondsLeft] = useState(5);
+  const [secondsLeft, setSecondsLeft] = useState(8);
 
   const [votes, setVotes] = useState<{ [key: number]: Vote }>({
     1: { label: "1", count: 0, voted: false, order: 1 },
@@ -81,6 +81,7 @@ const Room: NextPage = () => {
     });
 
     socket.on("started", () => {
+      clearInterval(timer);
       setStarted(true);
       setSecondsLeft(duration);
       timer = setInterval(() => {
