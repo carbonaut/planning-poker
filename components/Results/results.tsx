@@ -51,7 +51,7 @@ const Results = (props: ResultsProps) => {
       return;
     }
 
-    setDraw();
+    setResultOnDisagreement();
   }, [props.ended, normalized]);
 
   const getResults = () => {
@@ -75,7 +75,7 @@ const Results = (props: ResultsProps) => {
     );
   };
 
-  const setDraw = () => {
+  const setResultOnDisagreement = () => {
     let mostVotesQuantity = 0;
     normalized.forEach((vote, i) => {
       if (vote.count > mostVotesQuantity) {
@@ -87,10 +87,10 @@ const Results = (props: ResultsProps) => {
       return item.count === mostVotesQuantity;
     });
 
-    setWinnerOnDraw(winnerVotes);
+    setWinnerVote(winnerVotes);
   };
 
-  const setWinnerOnDraw = (votes: VotemItemColored[]) => {
+  const setWinnerVote = (votes: VotemItemColored[]) => {
     const { length } = votes;
 
     if (length === 1) {
@@ -99,21 +99,10 @@ const Results = (props: ResultsProps) => {
       return;
     }
 
-    if (length > 2 && length < 4) {
-      const closeVotes = votes.filter((item, i) => {
-        if (i === 0) {
-          return votes[i + 1].order - item.order === 1;
-        }
-
-        return item.order - votes[i - 1].order === 1;
-      });
-
-      if (closeVotes.length >= 1) {
-        setWinner(closeVotes[closeVotes.length - 1].label);
-
-        setResult(2);
-        return;
-      }
+    if (length === 2 && votes[1].order - votes[0].order === 1) {
+      setWinner(votes[1].label);
+      setResult(2);
+      return;
     }
 
     setResult(1);
