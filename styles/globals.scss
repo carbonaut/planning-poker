@@ -1,9 +1,31 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700&display=swap");
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
 
+:root {
+  --color-red: #f04943;
+  --color-red-hover: #e76c69;
+  --color-green: #15c874;
+  --color-green-hover: #51ffa1;
+  --color-blue: #2ec4e6;
+  --color-blue-hover: #81e8ff;
+  --color-disabled: #2d3336;
+
+  --color-green-70: #15c87470;
+
+  --color-gray-900: #111111;
+  --color-gray-800: #23292c;
+  --color-gray-700: #4f575b;
+  --color-gray-600: #535e64;
+  --color-gray-100: #e4e8ea;
+
+  --color-black: black;
+  --color-white: white;
+  --color-yellow: #fbb751;
+}
+
 html,
 body {
-  background: #111;
+  background: var(--color-gray-900);
   padding: 0;
   margin: 0;
   font-family: -apple-system, Inter, BlinkMacSystemFont, Segoe UI, Roboto,
@@ -18,7 +40,7 @@ h2 {
   line-height: 36px;
   margin: 10px;
 
-  color: #e4e8ea;
+  color: var(--color-gray-100);
 }
 
 a {
@@ -30,19 +52,25 @@ a {
   box-sizing: border-box;
 }
 
-.bg-error {
-  background-color: #f04943;
+.l-container {
+  background: var(--color-gray-800);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin-top: auto;
+  margin-bottom: auto;
+
+  &--inner {
+    margin: -20px;
+  }
 }
 
-.button {
-  cursor: pointer;
-  border: 0px;
-  background-color: transparent;
-  margin: 0px;
-  padding: 0px;
+.u-color--green {
+  color: var(--color-green);
 }
 
-.button-icon {
-  font-size: 25px;
-  height: 28px;
+.u-color--red {
+  color: var(--color-red);
 }

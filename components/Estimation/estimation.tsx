@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import Countdown from "../Countdown/countdown";
 import LoadingRoom from "../LoadingRoom/loadingRoom";
 import Results from "../Results/results";
-import { io } from "socket.io-client";
-import Button from "../Button/button";
 export interface RoomProps {
   vote?: any;
   isScrumMaster: boolean;
@@ -18,6 +16,7 @@ export interface RoomProps {
   secondsLeft: number;
   duration: number;
   ended: boolean;
+  noDevs: number;
 }
 
 const Estimation = (props: RoomProps) => {
@@ -46,12 +45,13 @@ const Estimation = (props: RoomProps) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`l-container ${styles.container}`}>
       {loading ? (
         <LoadingRoom
           isScrumMaster={props.isScrumMaster}
           roomNumber={props.roomId}
           onStart={start}
+          disabled={props.noDevs > 1}
         ></LoadingRoom>
       ) : (
         <>

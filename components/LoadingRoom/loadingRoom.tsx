@@ -1,15 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getRoomMemberLink } from "../../utils/utils";
 import styles from "./loadingRoom.module.scss";
+import Button from "../Button/button";
+import { useAppContext } from "../../utils/ToastContext";
 
 export interface LoadingProps {
   isScrumMaster: boolean;
   roomNumber: string;
   onStart: any;
+  disabled: boolean;
 }
 
 const LoadingRoom = (props: LoadingProps) => {
   const [copied, setCopy] = useState(false);
+  const [disabled, setDisable] = useState(true);
+  const { setMessage } = useAppContext();
+
+  useEffect(() => {
+    props.disabled ? setDisable(false) : setDisable(true);
+  }, [props.disabled]);
 
   async function copyID() {
     let link = getRoomMemberLink();
@@ -24,8 +33,16 @@ const LoadingRoom = (props: LoadingProps) => {
         }, 1000);
       })
       .catch(() => {
-        // error toast
+        setMessage("Erro ao copiar");
       });
+  }
+
+  function startVoting() {
+    if (disabled) {
+      return;
+    }
+
+    props.onStart();
   }
 
   return (
@@ -47,13 +64,15 @@ const LoadingRoom = (props: LoadingProps) => {
               )}
             </p>
           </div>
-          <button className={styles.button} onClick={props.onStart}>
+          <Button onClick={startVoting} disabled={disabled}>
             Iniciar votação
-          </button>
+          </Button>
         </>
       ) : (
         <>
-          <p className={styles.title}>Aguardando inicio...</p>
+          <p className={`${styles.title} ${styles.wide}`}>
+            Aguardando inicio...
+          </p>
           <div className={styles.loadingIcon}>
             <i className="bi bi-hourglass-split"></i>
           </div>
