@@ -25,6 +25,7 @@ type VoteItem = {
   label: string;
   count: number;
   color: string;
+  order: number;
 };
 
 const Results = (props: ResultsProps) => {
@@ -50,31 +51,7 @@ const Results = (props: ResultsProps) => {
       return;
     }
 
-    let votesSum = 0;
-
-    normalized.forEach((i) => {
-      votesSum += i.count;
-    });
-
-    if (votesSum === normalized[0].count * normalized.length) {
-      setWinner(null);
-      setResult(1);
-      return;
-    } else {
-      let mostVotedIndex = -1;
-      normalized.forEach((vote, i) => {
-        if (
-          mostVotedIndex < 0 ||
-          vote.count > normalized[mostVotedIndex].count
-        ) {
-          mostVotedIndex = i;
-        }
-      });
-
-      setWinner(normalized[mostVotedIndex].label);
-      setResult(2);
-      return;
-    }
+    setResultOnDisagreement();
   }, [props.ended, normalized]);
 
   const getResults = () => {
@@ -96,6 +73,40 @@ const Results = (props: ResultsProps) => {
         0
       )
     );
+  };
+
+  const setResultOnDisagreement = () => {
+    let mostVotesQuantity = 0;
+    normalized.forEach((vote, i) => {
+      if (vote.count > mostVotesQuantity) {
+        mostVotesQuantity = vote.count;
+      }
+    });
+
+    const winnerVotes = normalized.filter((item, i) => {
+      return item.count === mostVotesQuantity;
+    });
+
+    setWinnerVote(winnerVotes);
+  };
+
+  const setWinnerVote = (votes: VotemItemColored[]) => {
+    const { length } = votes;
+
+    if (length === 1) {
+      setWinner(votes[0].label);
+      setResult(2);
+      return;
+    }
+
+    if (length === 2 && votes[1].order - votes[0].order === 1) {
+      setWinner(votes[1].label);
+      setResult(2);
+      return;
+    }
+
+    setResult(1);
+    return;
   };
 
   return (
