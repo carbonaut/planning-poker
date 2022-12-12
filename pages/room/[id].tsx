@@ -66,7 +66,7 @@ const Room: NextPage = () => {
   }, [isReady]);
 
   const socketInitializer = () => {
-    socket = io("https://carbonaut-planning-poker.herokuapp.com");
+    socket = io("https://planning-poker-server-3lup.onrender.com");
 
     socket.on("connect", () => {
       socket.emit("join", [id, host || scrumMaster]);
